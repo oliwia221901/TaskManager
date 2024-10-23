@@ -3397,11 +3397,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/oliwia/Documents/UKEN/Projekt_Inz/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj",
+      "projectUniqueName": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj",
       "projectName": "TaskManagerAPI.WebAPI",
-      "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj",
+      "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj",
       "packagesPath": "/Users/oliwia/.nuget/packages/",
-      "outputPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/obj/",
+      "outputPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/oliwia/.nuget/NuGet/NuGet.Config"
@@ -3416,11 +3416,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/oliwia/Documents/UKEN/Projekt_Inz/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj": {
-              "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj"
+            "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj": {
+              "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj"
             },
-            "/Users/oliwia/Documents/UKEN/Projekt_Inz/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj": {
-              "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj"
+            "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj": {
+              "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj"
             }
           }
         }
@@ -3429,11 +3429,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {

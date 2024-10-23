@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YZcnw0fuMr0=",
+  "dgSpecHash": "Wg2w2q+8a7IAvwF0pyz0PAAll+ZpXZU/ieZHDcXYBTBCIuEW9622sY98ksi54tG1Yb78Fe1HENFJWADjKElddA==",
   "success": true,
-  "projectFilePath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
+  "projectFilePath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
   "expectedPackageFiles": [
     "/Users/oliwia/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.10/microsoft.aspnetcore.authentication.jwtbearer.8.0.10.nupkg.sha512",
     "/Users/oliwia/.nuget/packages/microsoft.aspnetcore.cryptography.internal/8.0.10/microsoft.aspnetcore.cryptography.internal.8.0.10.nupkg.sha512",
