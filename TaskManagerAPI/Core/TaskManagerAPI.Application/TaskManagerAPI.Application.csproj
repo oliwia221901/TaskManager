@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaskManagerAPI.Domain\TaskManagerAPI.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Features\UserFeatures\Commands\" />
+    <None Remove="Features\UserFeatures\Queries\" />
+    <None Remove="Features\UserFeatures\Commands\CreateUserCommand\" />
+    <None Remove="Common\" />
+    <None Remove="Common\Interfaces\" />
+    <None Remove="User\Commands\" />
+    <None Remove="User\Commands\Create\" />
+    <None Remove="Common\Behaviours\" />
+    <None Remove="Common\Exceptions\" />
+    <None Remove="Features\" />
+    <None Remove="Features\Register\" />
+    <None Remove="Features\Login\" />
+    <None Remove="Features\Role\" />
+    <None Remove="Features\Role\AddRole\" />
+    <None Remove="Features\Role\AssignRole\" />
+    <None Remove="Features\Users\" />
+    <None Remove="Features\Users\Queries\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.10.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="Common\Interfaces\" />
+    <Folder Include="Common\Behaviours\" />
+    <Folder Include="Common\Exceptions\" />
+    <Folder Include="Features\" />
+    <Folder Include="Features\Register\" />
+    <Folder Include="Features\Login\" />
+    <Folder Include="Features\Role\" />
+    <Folder Include="Features\Role\AddRole\" />
+    <Folder Include="Features\Role\AssignRole\" />
+    <Folder Include="Features\Users\" />
+    <Folder Include="Features\Users\Queries\" />
+  </ItemGroup>
+</Project>
