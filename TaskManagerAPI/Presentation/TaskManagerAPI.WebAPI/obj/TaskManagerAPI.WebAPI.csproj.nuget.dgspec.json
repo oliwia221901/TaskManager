@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj": {}
+    "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj": {}
   },
   "projects": {
-    "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj": {
+    "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj",
+        "projectUniqueName": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj",
         "projectName": "TaskManagerAPI.Application",
-        "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj",
+        "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj",
         "packagesPath": "/Users/oliwia/.nuget/packages/",
-        "outputPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Application/obj/",
+        "outputPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/oliwia/.nuget/NuGet/NuGet.Config"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj": {
-                "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj"
+              "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj": {
+                "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj"
               }
             }
           }
@@ -50,17 +50,21 @@
               "target": "Package",
               "version": "[11.10.0, )"
             },
-            "FluentValidation.DependencyInjectionExtensions": {
-              "target": "Package",
-              "version": "[11.10.0, )"
-            },
             "MediatR.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[11.1.0, )"
             },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.10, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.1.2, )"
             }
           },
           "imports": [
@@ -83,14 +87,14 @@
         }
       }
     },
-    "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj": {
+    "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
+        "projectUniqueName": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
         "projectName": "TaskManagerAPI.Domain",
-        "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
+        "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
         "packagesPath": "/Users/oliwia/.nuget/packages/",
-        "outputPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/",
+        "outputPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/oliwia/.nuget/NuGet/NuGet.Config"
@@ -117,11 +121,7 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Authentication.JwtBearer": {
-              "target": "Package",
-              "version": "[8.0.10, )"
-            },
-            "Microsoft.Extensions.Identity.Core": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.10, )"
             }
@@ -146,14 +146,14 @@
         }
       }
     },
-    "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj": {
+    "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj",
+        "projectUniqueName": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj",
         "projectName": "TaskManagerAPI.Persistence",
-        "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj",
+        "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj",
         "packagesPath": "/Users/oliwia/.nuget/packages/",
-        "outputPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/obj/",
+        "outputPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/oliwia/.nuget/NuGet/NuGet.Config"
@@ -168,8 +168,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj": {
-                "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj"
+              "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj": {
+                "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj"
               }
             }
           }
@@ -188,15 +188,11 @@
               "target": "Package",
               "version": "[8.0.3, )"
             },
-            "Microsoft.AspNetCore.Authentication.JwtBearer": {
-              "target": "Package",
-              "version": "[8.0.10, )"
-            },
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[8.0.10, )"
-            },
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.10, )"
             },
@@ -204,11 +200,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.10, )"
-            },
-            "Microsoft.Extensions.Identity.Core": {
-              "target": "Package",
-              "version": "[8.0.10, )"
+              "version": "[8.0.8, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
@@ -235,14 +227,14 @@
         }
       }
     },
-    "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj": {
+    "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj",
+        "projectUniqueName": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj",
         "projectName": "TaskManagerAPI.WebAPI",
-        "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj",
+        "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/TaskManagerAPI.WebAPI.csproj",
         "packagesPath": "/Users/oliwia/.nuget/packages/",
-        "outputPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/obj/",
+        "outputPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Presentation/TaskManagerAPI.WebAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/oliwia/.nuget/NuGet/NuGet.Config"
@@ -257,11 +249,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj": {
-                "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj"
+              "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj": {
+                "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj"
               },
-              "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj": {
-                "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repozytorium/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj"
+              "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj": {
+                "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Infrastructure/TaskManagerAPI.Persistence/TaskManagerAPI.Persistence.csproj"
               }
             }
           }
@@ -276,11 +268,15 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.10, )"
+              "version": "[8.0.8, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

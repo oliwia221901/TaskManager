@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TaskManagerAPI.WebAPI.Controllers
 {
+
     [ApiController]
-
-    public abstract class BaseController : ControllerBase
+    public class BaseController : ControllerBase
     {
-        private ISender _mediator;
+        private IMediator _mediator;
 
-        protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<ISender>();
+        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<IMediator>();
     }
 }
