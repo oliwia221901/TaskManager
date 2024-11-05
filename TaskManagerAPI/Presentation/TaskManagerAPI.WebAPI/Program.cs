@@ -10,6 +10,7 @@ using TaskManagerAPI.Domain.Entities.UserManage;
 using TaskManagerAPI.Persistence;
 using TaskManagerAPI.Persistence.Context;
 using TaskManagerAPI.Persistence.Services;
+using TaskManagerAPI.WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,9 +44,11 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]))
     };
 });
+
 builder.Services.AddScoped<JwtTokenService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<ITaskManagerDbContext, TaskManagerDbContext>();
+builder.Services.AddScoped<ITaskItemAuthorizationService, TaskItemAuthorizationService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -61,6 +64,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

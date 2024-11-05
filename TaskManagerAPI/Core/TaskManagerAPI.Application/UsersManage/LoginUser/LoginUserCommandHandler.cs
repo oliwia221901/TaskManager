@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Services;
 using TaskManagerAPI.Domain.Entities.UserManage;
 
@@ -24,14 +25,12 @@ namespace TaskManagerAPI.Application.UsersManage.LoginUser
         public async Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(request.LoginUserDto.UserName)
-                ?? throw new System.Exception("Invalid login attempt.");
+                ?? throw new UnauthorizedAccessException("Invalid username or password");
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.LoginUserDto.Password, false);
 
             if (!result.Succeeded)
-            {
-                throw new System.Exception("Invalid login attempt.");
-            }
+                throw new UnauthorizedAccessException("Invalid username or password");
 
             return _jwtTokenService.GenerateToken(user);
         }

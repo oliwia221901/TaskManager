@@ -20,11 +20,6 @@ namespace TaskManagerAPI.Application.TaskLists.Commands
 		{
             var userName = _currentUserService.GetCurrentUserName();
 
-            if (string.IsNullOrEmpty(userName))
-            {
-                throw new UnauthorizedAccessException("User name is null or empty.");
-            }
-
             var taskList = CreateTaskList(request.CreateTaskListDto, userName);
 
 			_taskManagerDbContext.TaskLists.Add(taskList);

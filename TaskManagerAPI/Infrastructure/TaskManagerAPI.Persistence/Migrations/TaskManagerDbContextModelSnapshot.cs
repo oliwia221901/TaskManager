@@ -174,7 +174,7 @@ namespace TaskManagerAPI.Persistence.Migrations
 
                     b.HasIndex("TaskListId");
 
-                    b.ToTable("TaskItems");
+                    b.ToTable("TaskItems", (string)null);
                 });
 
             modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskItem.TaskList", b =>
@@ -195,7 +195,7 @@ namespace TaskManagerAPI.Persistence.Migrations
 
                     b.HasKey("TaskListId");
 
-                    b.ToTable("TaskLists");
+                    b.ToTable("TaskLists", (string)null);
                 });
 
             modelBuilder.Entity("TaskManagerAPI.Domain.Entities.UserManage.AppUser", b =>
@@ -263,6 +263,37 @@ namespace TaskManagerAPI.Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.UserManage.Friendship", b =>
+                {
+                    b.Property<int>("FriendshipId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FriendshipId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FriendId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RequesterId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("FriendshipId");
+
+                    b.HasIndex("FriendId");
+
+                    b.HasIndex("RequesterId");
+
+                    b.ToTable("Friendships", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -325,9 +356,35 @@ namespace TaskManagerAPI.Persistence.Migrations
                     b.Navigation("TaskLists");
                 });
 
+            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.UserManage.Friendship", b =>
+                {
+                    b.HasOne("TaskManagerAPI.Domain.Entities.UserManage.AppUser", "Friend")
+                        .WithMany("FriendRequestsReceived")
+                        .HasForeignKey("FriendId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TaskManagerAPI.Domain.Entities.UserManage.AppUser", "Requester")
+                        .WithMany("FriendRequestsSent")
+                        .HasForeignKey("RequesterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Friend");
+
+                    b.Navigation("Requester");
+                });
+
             modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskItem.TaskList", b =>
                 {
                     b.Navigation("TaskItems");
+                });
+
+            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.UserManage.AppUser", b =>
+                {
+                    b.Navigation("FriendRequestsReceived");
+
+                    b.Navigation("FriendRequestsSent");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using TaskManagerAPI.Application.Common.Exceptions;
+using TaskManagerAPI.Application.Dtos.RegisterUser;
 using TaskManagerAPI.Domain.Entities.UserManage;
 
 namespace TaskManagerAPI.Application.UsersManage.RegisterUser
@@ -15,21 +17,26 @@ namespace TaskManagerAPI.Application.UsersManage.RegisterUser
 
         public async Task<string> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new AppUser
+            if (await _userManager.FindByNameAsync(request.RegisterUserDto.Username) != null)
+                throw new ResourceConflictException("Username already exists.");
+
+            if (await _userManager.FindByEmailAsync(request.RegisterUserDto.Email) != null)
+                throw new ResourceConflictException("Email already exists.");
+
+            var user = RegisterAppUser(request.RegisterUserDto);
+
+            await _userManager.CreateAsync(user, request.RegisterUserDto.Password);
+
+            return user.Id;
+        }
+
+        public static AppUser RegisterAppUser(RegisterUserDto registerUserDto)
+        {
+            return new AppUser
             {
-                UserName = request.RegisterUserDto.Username,
-                Email = request.RegisterUserDto.Email
+                UserName = registerUserDto.Username,
+                Email = registerUserDto.Email
             };
-
-            var result = await _userManager.CreateAsync(user, request.RegisterUserDto.Password);
-
-            if (!result.Succeeded)
-            {
-                var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                throw new System.Exception($"User registration failed: {errors}");
-            }
-
-            return "User registered successfully";
         }
     }
 }

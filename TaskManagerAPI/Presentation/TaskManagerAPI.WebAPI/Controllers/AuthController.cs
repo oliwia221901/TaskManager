@@ -19,7 +19,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
             };
 
             var result = await Mediator.Send(command);
-            return Ok(result);
+            return Created(string.Empty, result);
         }
 
         [HttpPost("login")]

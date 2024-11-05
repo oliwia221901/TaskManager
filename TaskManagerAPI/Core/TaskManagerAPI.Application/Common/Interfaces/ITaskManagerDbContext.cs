@@ -11,6 +11,7 @@ namespace TaskManagerAPI.Application.Common.Interfaces
         DbSet<TaskItem> TaskItems { get; set; }
         DbSet<TaskList> TaskLists { get; set; }
         DbSet<AppUser> AppUsers { get; set; }
+        DbSet<Friendship> Friendships { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

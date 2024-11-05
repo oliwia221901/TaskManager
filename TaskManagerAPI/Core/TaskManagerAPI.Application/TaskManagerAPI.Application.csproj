@@ -33,14 +33,23 @@
     <None Remove="Dtos\LoginUser\" />
     <None Remove="UsersManage\LoginUser\" />
     <None Remove="Common\Services\" />
+    <None Remove="UsersManage\Friendships\" />
+    <None Remove="UsersManage\Friendships\Commands\" />
+    <None Remove="UsersManage\Friendships\Commands\AcceptFriendRequest\" />
+    <None Remove="UsersManage\Friendships\Commands\SendFriendRequest\" />
+    <None Remove="UsersManage\Friendships\Queries\" />
+    <None Remove="UsersManage\Friendships\Queries\GetFriendships\" />
+    <None Remove="Dtos\CreateFriendship\" />
+    <None Remove="Common\Behaviors\" />
+    <None Remove="Common\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.10.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.1.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
@@ -61,5 +70,14 @@
     <Folder Include="Dtos\LoginUser\" />
     <Folder Include="UsersManage\LoginUser\" />
     <Folder Include="Common\Services\" />
+    <Folder Include="UsersManage\Friendships\" />
+    <Folder Include="UsersManage\Friendships\Commands\" />
+    <Folder Include="UsersManage\Friendships\Commands\AcceptFriendRequest\" />
+    <Folder Include="UsersManage\Friendships\Commands\SendFriendRequest\" />
+    <Folder Include="UsersManage\Friendships\Queries\" />
+    <Folder Include="UsersManage\Friendships\Queries\GetFriendships\" />
+    <Folder Include="Dtos\CreateFriendship\" />
+    <Folder Include="Common\Behaviors\" />
+    <Folder Include="Common\Exceptions\" />
   </ItemGroup>
 </Project>
