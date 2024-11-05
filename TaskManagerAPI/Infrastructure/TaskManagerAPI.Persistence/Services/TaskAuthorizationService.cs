@@ -5,18 +5,18 @@ using TaskManagerAPI.Persistence.Context;
 
 namespace TaskManagerAPI.Persistence.Services
 {
-    public class TaskItemAuthorizationService : ITaskItemAuthorizationService
+    public class TaskAuthorizationService : ITaskAuthorizationService
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly TaskManagerDbContext _taskManagerDbContext;
 
-        public TaskItemAuthorizationService(ICurrentUserService currentUserService, TaskManagerDbContext taskManagerDbContext)
+        public TaskAuthorizationService(ICurrentUserService currentUserService, TaskManagerDbContext taskManagerDbContext)
         {
             _currentUserService = currentUserService;
             _taskManagerDbContext = taskManagerDbContext;
         }
 
-        public async Task AuthorizeAccessToTaskItemAsync(int taskItemId)
+        public async Task AuthorizeAccessToTaskItem(int taskItemId)
         {
             var currentUserName = _currentUserService.GetCurrentUserName();
 
@@ -25,10 +25,10 @@ namespace TaskManagerAPI.Persistence.Services
                                 tl.TaskItems.Any(ti => ti.TaskItemId == taskItemId));
 
             if (!hasAccess)
-                throw new ForbiddenAccessException($"User '{currentUserName}' does not have access to TaskItemId {taskItemId}.");
+                throw new ForbiddenAccessException($"Unauthorized access.");
         }
 
-        public async Task AuthorizeAccessToTaskListAsync(int taskListId)
+        public async Task AuthorizeAccessToTaskList(int taskListId)
         {
             var currentUserName = _currentUserService.GetCurrentUserName();
 
@@ -37,7 +37,7 @@ namespace TaskManagerAPI.Persistence.Services
                                 tl.TaskListId == taskListId);
 
             if (!hasAccess)
-                throw new ForbiddenAccessException($"User '{currentUserName}' does not have access to TaskListId {taskListId}.");
+                throw new ForbiddenAccessException($"Unauthorized access.");
         }
     }
 }

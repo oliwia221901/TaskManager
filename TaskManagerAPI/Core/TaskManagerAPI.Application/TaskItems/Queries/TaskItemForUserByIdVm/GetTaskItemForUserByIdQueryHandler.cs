@@ -11,20 +11,20 @@ namespace TaskManagerAPI.Application.TaskItems.Queries
 	{
 		private readonly ITaskManagerDbContext _taskManagerDbContext;
 		private readonly ICurrentUserService _currentUserService;
-		private readonly ITaskItemAuthorizationService _taskItemAuthorizationService;
+		private readonly ITaskAuthorizationService _taskAuthorizationService;
 
-		public GetTaskItemForUserByIdQueryHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService, ITaskItemAuthorizationService taskItemAuthorizationService)
+		public GetTaskItemForUserByIdQueryHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService, ITaskAuthorizationService taskAuthorizationService)
 		{
 			_taskManagerDbContext = taskManagerDbContext;
 			_currentUserService = currentUserService;
-			_taskItemAuthorizationService = taskItemAuthorizationService;
+			_taskAuthorizationService = taskAuthorizationService;
 		}
 
 		public async Task<TaskItemForUserByIdVm> Handle(GetTaskItemForUserByIdQuery request, CancellationToken cancellationToken)
 		{
 			var userName = _currentUserService.GetCurrentUserName();
 			var taskLists = await GetTaskListByUserName(userName, request.TaskItemId, cancellationToken);
-            await _taskItemAuthorizationService.AuthorizeAccessToTaskItemAsync(request.TaskItemId);
+            await _taskAuthorizationService.AuthorizeAccessToTaskItem(request.TaskItemId);
             var taskListsDto = MapTaskListsToDto(taskLists, request.TaskItemId);
 			return new TaskItemForUserByIdVm { TaskLists = taskListsDto };
 		}

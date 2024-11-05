@@ -21,3 +21,16 @@
 /Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/TaskManagerAPI.Domain.pdb
 /Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/ref/TaskManagerAPI.Domain.dll
 /Users/oliwia/Documents/UKEN/Projekt_Inz/Wersje/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/TaskManagerAPI.Domain.csproj.AssemblyReference.cache
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/bin/Debug/net8.0/TaskManagerAPI.Domain.deps.json
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/bin/Debug/net8.0/TaskManagerAPI.Domain.dll
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/bin/Debug/net8.0/TaskManagerAPI.Domain.pdb
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/TaskManagerAPI.Domain.csproj.AssemblyReference.cache
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/TaskManagerAPI.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/TaskManagerAPI.Domain.AssemblyInfoInputs.cache
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/TaskManagerAPI.Domain.AssemblyInfo.cs
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/TaskManagerAPI.Domain.csproj.CoreCompileInputs.cache
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/TaskManagerAPI.Domain.sourcelink.json
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/TaskManagerAPI.Domain.dll
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/refint/TaskManagerAPI.Domain.dll
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/TaskManagerAPI.Domain.pdb
+/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/Debug/net8.0/ref/TaskManagerAPI.Domain.dll

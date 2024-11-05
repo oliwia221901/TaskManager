@@ -11,19 +11,19 @@ namespace TaskManagerAPI.Application.TaskItems.Commands
 	{
 		private readonly ITaskManagerDbContext _taskManagerDbContext;
 		private readonly ICurrentUserService _currentUserService;
-		private readonly ITaskItemAuthorizationService _taskItemAuthorizationService;
+		private readonly ITaskAuthorizationService _taskAuthorizationService;
 
-        public CreateTaskItemCommandHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService, ITaskItemAuthorizationService taskItemAuthorizationService)
+        public CreateTaskItemCommandHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService, ITaskAuthorizationService taskAuthorizationService)
 		{
 			_taskManagerDbContext = taskManagerDbContext;
 			_currentUserService = currentUserService;
-			_taskItemAuthorizationService = taskItemAuthorizationService;
+			_taskAuthorizationService = taskAuthorizationService;
 		}
 
 		public async Task<int> Handle(CreateTaskItemCommand request, CancellationToken cancellationToken)
 		{
             var taskItem = await CreateTaskItem(request.CreateTaskItemDto, cancellationToken);
-			await _taskItemAuthorizationService.AuthorizeAccessToTaskListAsync(request.CreateTaskItemDto.TaskListId);
+			await _taskAuthorizationService.AuthorizeAccessToTaskList(request.CreateTaskItemDto.TaskListId);
 			_taskManagerDbContext.TaskItems.Add(taskItem);
 			await _taskManagerDbContext.SaveChangesAsync(cancellationToken);
 

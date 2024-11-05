@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Domain.Entities.UserManage.Enums;
 
@@ -16,9 +17,10 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFrie
         public async Task<AcceptFriendshipVm> Handle(AcceptFriendRequestCommand request, CancellationToken cancellationToken)
         {
             var friendship = await _taskManagerDbContext.Friendships.FindAsync(
-                new object[] { request.AcceptFriendRequestDto.FriendshipId }, cancellationToken);
+                new object[] { request.AcceptFriendRequestDto.FriendshipId }, cancellationToken)
+                ?? throw new NotFoundException("Relation does not exist.");
 
-            if (friendship == null || friendship.Status != FriendshipStatus.Pending)
+            if (friendship.Status != FriendshipStatus.Pending)
             {
                 return new AcceptFriendshipVm
                 {

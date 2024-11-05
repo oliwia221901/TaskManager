@@ -48,7 +48,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<JwtTokenService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<ITaskManagerDbContext, TaskManagerDbContext>();
-builder.Services.AddScoped<ITaskItemAuthorizationService, TaskItemAuthorizationService>();
+builder.Services.AddScoped<ITaskAuthorizationService, TaskAuthorizationService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
