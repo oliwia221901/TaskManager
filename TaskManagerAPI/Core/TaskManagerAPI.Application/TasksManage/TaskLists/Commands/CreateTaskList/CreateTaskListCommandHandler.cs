@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Application.Dtos.CreateTask;
-using TaskManagerAPI.Domain.Entities.TaskItem;
+using TaskManagerAPI.Domain.Entities.TaskManage;
 
-namespace TaskManagerAPI.Application.TaskLists.Commands
+namespace TaskManagerAPI.Application.TasksManage.TaskLists.Commands
 {
     public class CreateTaskListCommandHandler : IRequestHandler<CreateTaskListCommand, int>
 	{

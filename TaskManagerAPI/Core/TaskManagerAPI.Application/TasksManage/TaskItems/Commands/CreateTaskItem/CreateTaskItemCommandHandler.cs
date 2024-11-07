@@ -3,27 +3,27 @@ using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Application.Dtos.CreateTask;
-using TaskManagerAPI.Domain.Entities.TaskItem;
+using TaskManagerAPI.Domain.Entities.TaskManage;
 
-namespace TaskManagerAPI.Application.TaskItems.Commands
+namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
 {
     public class CreateTaskItemCommandHandler : IRequestHandler<CreateTaskItemCommand, int>
 	{
 		private readonly ITaskManagerDbContext _taskManagerDbContext;
-		private readonly ICurrentUserService _currentUserService;
 		private readonly ITaskAuthorizationService _taskAuthorizationService;
 
-        public CreateTaskItemCommandHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService, ITaskAuthorizationService taskAuthorizationService)
+        public CreateTaskItemCommandHandler(ITaskManagerDbContext taskManagerDbContext, ITaskAuthorizationService taskAuthorizationService)
 		{
 			_taskManagerDbContext = taskManagerDbContext;
-			_currentUserService = currentUserService;
 			_taskAuthorizationService = taskAuthorizationService;
 		}
 
 		public async Task<int> Handle(CreateTaskItemCommand request, CancellationToken cancellationToken)
 		{
             var taskItem = await CreateTaskItem(request.CreateTaskItemDto, cancellationToken);
+
 			await _taskAuthorizationService.AuthorizeAccessToTaskList(request.CreateTaskItemDto.TaskListId);
+
 			_taskManagerDbContext.TaskItems.Add(taskItem);
 			await _taskManagerDbContext.SaveChangesAsync(cancellationToken);
 

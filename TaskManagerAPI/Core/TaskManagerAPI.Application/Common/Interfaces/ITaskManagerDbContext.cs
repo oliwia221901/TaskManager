@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using TaskManagerAPI.Domain.Entities.TaskItem;
+using TaskManagerAPI.Domain.Entities.TaskManage;
 using TaskManagerAPI.Domain.Entities.UserManage;
 
 namespace TaskManagerAPI.Application.Common.Interfaces

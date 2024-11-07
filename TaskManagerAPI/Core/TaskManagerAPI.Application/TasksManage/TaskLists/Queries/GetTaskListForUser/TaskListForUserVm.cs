@@ -1,6 +1,6 @@
 ﻿using TaskManagerAPI.Application.Dtos.GetTaskListForUser;
 
-namespace TaskManagerAPI.Application.TaskLists.Queries.GetTaskListForUser
+namespace TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListForUser
 {
     public class TaskListForUserVm
     {

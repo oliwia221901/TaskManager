@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Application.Dtos.GetTaskItemForUserById;
-using TaskManagerAPI.Domain.Entities.TaskItem;
+using TaskManagerAPI.Application.TasksManage.TaskItems.Queries;
+using TaskManagerAPI.Domain.Entities.TaskManage;
 
 namespace TaskManagerAPI.Application.TaskItems.Queries
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Interfaces;
-using TaskManagerAPI.Domain.Entities.TaskItem;
+using TaskManagerAPI.Domain.Entities.TaskManage;
 using TaskManagerAPI.Domain.Entities.UserManage;
 
 namespace TaskManagerAPI.Persistence.Context

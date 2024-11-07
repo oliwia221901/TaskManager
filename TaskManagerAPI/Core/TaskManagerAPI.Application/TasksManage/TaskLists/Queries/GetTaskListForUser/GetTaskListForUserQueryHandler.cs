@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Application.Dtos.GetTaskListForUser;
-using TaskManagerAPI.Domain.Entities.TaskItem;
+using TaskManagerAPI.Domain.Entities.TaskManage;
 
-namespace TaskManagerAPI.Application.TaskLists.Queries.GetTaskListForUser
+namespace TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListForUser
 {
     public class GetTaskListForUserQueryHandler : IRequestHandler<GetTaskListForUserQuery, TaskListForUserVm>
 	{

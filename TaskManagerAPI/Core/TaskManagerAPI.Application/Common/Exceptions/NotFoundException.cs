@@ -1,5 +1,4 @@
-﻿using System;
-namespace TaskManagerAPI.Application.Common.Exceptions
+﻿namespace TaskManagerAPI.Application.Common.Exceptions
 {
     public class NotFoundException : Exception
     {

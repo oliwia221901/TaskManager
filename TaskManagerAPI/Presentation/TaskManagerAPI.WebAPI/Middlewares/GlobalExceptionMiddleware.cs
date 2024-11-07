@@ -30,6 +30,10 @@ namespace TaskManagerAPI.WebAPI.Middlewares
             {
                 await HandleNotFoundExceptionAsync(context, ex);
             }
+            catch (BadRequestException ex)
+            {
+                await HandleBadRequestExceptionAsync(context, ex);
+            }
             catch (UnauthorizedAccessException ex)
             {
                 await HandleUnauthorizedAccessExceptionAsync(context, ex);
@@ -80,6 +84,23 @@ namespace TaskManagerAPI.WebAPI.Middlewares
 
             return context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
+
+        private Task HandleBadRequestExceptionAsync(HttpContext context, BadRequestException ex)
+        {
+            _logger.LogError(ex, "Bad request error occurred.");
+
+            var response = new
+            {
+                StatusCode = (int)HttpStatusCode.BadRequest,
+                Message = ex.Message
+            };
+
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Response.ContentType = "application/json";
+
+            return context.Response.WriteAsync(JsonSerializer.Serialize(response));
+        }
+
         private Task HandleUnauthorizedAccessExceptionAsync(HttpContext context, UnauthorizedAccessException ex)
         {
             _logger.LogError(ex, "Unauthorized access error occurred.");
@@ -95,6 +116,7 @@ namespace TaskManagerAPI.WebAPI.Middlewares
 
             return context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
+
         private Task HandleInvalidOperationExceptionAsync(HttpContext context, InvalidOperationException ex)
         {
             _logger.LogError(ex, "Invalid operation error occurred.");
@@ -110,6 +132,7 @@ namespace TaskManagerAPI.WebAPI.Middlewares
 
             return context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
+
         private Task HandleForbiddenAccessExceptionAsync(HttpContext context, ForbiddenAccessException ex)
         {
             _logger.LogError(ex, "Forbidden access error occurred.");
@@ -125,6 +148,7 @@ namespace TaskManagerAPI.WebAPI.Middlewares
 
             return context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
+
         private Task HandleResourceConflictExceptionAsync(HttpContext context, ResourceConflictException ex)
         {
             _logger.LogError(ex, "Resource conflict error occurred.");

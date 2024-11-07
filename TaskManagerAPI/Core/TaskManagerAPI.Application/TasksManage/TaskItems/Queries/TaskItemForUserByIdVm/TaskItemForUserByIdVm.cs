@@ -1,6 +1,6 @@
 ﻿using TaskManagerAPI.Application.Dtos.GetTaskItemForUserById;
 
-namespace TaskManagerAPI.Application.TaskItems.Queries
+namespace TaskManagerAPI.Application.TasksManage.TaskItems.Queries
 {
     public class TaskItemForUserByIdVm
     {

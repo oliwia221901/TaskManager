@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace TaskManagerAPI.Application.TaskItems.Commands.CreateTaskItem
+namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands.CreateTaskItem
 {
     public class CreateTaskItemCommandValidator : AbstractValidator<CreateTaskItemCommand>
 	{

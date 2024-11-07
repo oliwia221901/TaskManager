@@ -8,15 +8,15 @@
 
   <ItemGroup>
     <None Remove="Entities\" />
-    <None Remove="Entities\TaskItem\" />
     <None Remove="Entities\UserManage\" />
     <None Remove="Entities\UserManage\Enums\" />
+    <None Remove="Entities\TaskManage\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
-    <Folder Include="Entities\TaskItem\" />
     <Folder Include="Entities\UserManage\" />
     <Folder Include="Entities\UserManage\Enums\" />
+    <Folder Include="Entities\TaskManage\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />

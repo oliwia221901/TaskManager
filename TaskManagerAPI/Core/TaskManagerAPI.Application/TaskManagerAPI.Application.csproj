@@ -17,16 +17,8 @@
     <None Remove="Common\Interfaces\" />
     <None Remove="User\Commands\" />
     <None Remove="User\Commands\Create\" />
-    <None Remove="TaskItems\" />
-    <None Remove="TaskItems\Commands\" />
-    <None Remove="TaskItems\Queries\" />
-    <None Remove="TaskLists\" />
-    <None Remove="TaskLists\Commands\" />
     <None Remove="Dtos\" />
     <None Remove="Dtos\CreateTask\" />
-    <None Remove="TaskLists\Queries\" />
-    <None Remove="TaskItems\Commands\CreateTaskItem\" />
-    <None Remove="TaskLists\Commands\CreateTaskList\" />
     <None Remove="UsersManage\" />
     <None Remove="UsersManage\RegisterUser\" />
     <None Remove="Dtos\RegisterUser\" />
@@ -42,6 +34,9 @@
     <None Remove="Dtos\CreateFriendship\" />
     <None Remove="Common\Behaviors\" />
     <None Remove="Common\Exceptions\" />
+    <None Remove="TasksManage\" />
+    <None Remove="TasksManage\TaskItems\" />
+    <None Remove="TasksManage\TaskLists\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
@@ -54,16 +49,8 @@
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="Common\Interfaces\" />
-    <Folder Include="TaskItems\" />
-    <Folder Include="TaskItems\Commands\" />
-    <Folder Include="TaskItems\Queries\" />
-    <Folder Include="TaskLists\" />
-    <Folder Include="TaskLists\Commands\" />
     <Folder Include="Dtos\" />
     <Folder Include="Dtos\CreateTask\" />
-    <Folder Include="TaskLists\Queries\" />
-    <Folder Include="TaskItems\Commands\CreateTaskItem\" />
-    <Folder Include="TaskLists\Commands\CreateTaskList\" />
     <Folder Include="UsersManage\" />
     <Folder Include="UsersManage\RegisterUser\" />
     <Folder Include="Dtos\RegisterUser\" />
@@ -79,5 +66,9 @@
     <Folder Include="Dtos\CreateFriendship\" />
     <Folder Include="Common\Behaviors\" />
     <Folder Include="Common\Exceptions\" />
+    <Folder Include="TasksManage\" />
+    <Folder Include="TasksManage\TaskItems\" />
+    <Folder Include="TasksManage\TaskItems\" />
+    <Folder Include="TasksManage\TaskLists\" />
   </ItemGroup>
 </Project>

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagerAPI.Application.Dtos.CreateTask;
-using TaskManagerAPI.Application.TaskItems.Commands;
-using TaskManagerAPI.Application.TaskItems.Queries;
-using TaskManagerAPI.Application.TaskLists.Commands;
-using TaskManagerAPI.Application.TaskLists.Queries.GetTaskListForUser;
+using TaskManagerAPI.Application.TasksManage.TaskItems.Commands;
+using TaskManagerAPI.Application.TasksManage.TaskItems.Queries;
+using TaskManagerAPI.Application.TasksManage.TaskLists.Commands;
+using TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListForUser;
 
 namespace TaskManagerAPI.WebAPI.Controllers
 {

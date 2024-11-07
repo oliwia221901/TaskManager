@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using TaskManagerAPI.Application.Dtos.CreateTask;
 
-namespace TaskManagerAPI.Application.TaskItems.Commands
+namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
 {
     public class CreateTaskItemCommand : IRequest<int>
 	{

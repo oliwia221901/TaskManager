@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Domain.Entities.UserManage.Enums;
@@ -8,16 +9,26 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFrie
     public class AcceptFriendRequestCommandHandler : IRequestHandler<AcceptFriendRequestCommand, AcceptFriendshipVm>
     {
         private readonly ITaskManagerDbContext _taskManagerDbContext;
+        private readonly ICurrentUserService _currentUserService;
 
-        public AcceptFriendRequestCommandHandler(ITaskManagerDbContext taskManagerDbContext)
+        public AcceptFriendRequestCommandHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService)
         {
             _taskManagerDbContext = taskManagerDbContext;
+            _currentUserService = currentUserService;
         }
 
         public async Task<AcceptFriendshipVm> Handle(AcceptFriendRequestCommand request, CancellationToken cancellationToken)
         {
-            var friendship = await _taskManagerDbContext.Friendships.FindAsync(
-                new object[] { request.AcceptFriendRequestDto.FriendshipId }, cancellationToken)
+            var userName = _currentUserService.GetCurrentUserName();
+
+            var userId = await _taskManagerDbContext.AppUsers
+                .Where(x => x.UserName == userName)
+                .Select(x => x.Id)
+                .SingleOrDefaultAsync(cancellationToken);
+
+            var friendship = await _taskManagerDbContext.Friendships
+                .Where(x => (x.RequesterId == userId || x.FriendId == userId) && x.FriendshipId == request.AcceptFriendRequestDto.FriendshipId)
+                .SingleOrDefaultAsync(cancellationToken)
                 ?? throw new NotFoundException("Relation does not exist.");
 
             if (friendship.Status != FriendshipStatus.Pending)
@@ -25,8 +36,13 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFrie
                 return new AcceptFriendshipVm
                 {
                     IsSuccess = false,
-                    Status = friendship?.Status ?? FriendshipStatus.Declined
+                    Status = friendship.Status
                 };
+            }
+
+            if (friendship.RequesterId == userId)
+            {
+                throw new BadRequestException("You cannot accept friend invitation from yourself.");
             }
 
             friendship.Status = FriendshipStatus.Accepted;

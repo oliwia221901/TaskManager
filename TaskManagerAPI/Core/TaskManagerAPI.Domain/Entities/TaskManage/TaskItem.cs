@@ -1,4 +1,4 @@
-﻿namespace TaskManagerAPI.Domain.Entities.TaskItem
+﻿namespace TaskManagerAPI.Domain.Entities.TaskManage
 {
     public class TaskItem
 	{
