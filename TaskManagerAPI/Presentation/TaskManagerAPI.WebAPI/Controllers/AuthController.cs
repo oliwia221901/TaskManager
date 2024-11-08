@@ -7,10 +7,10 @@ using TaskManagerAPI.Application.UsersManage.RegisterUser;
 namespace TaskManagerAPI.WebAPI.Controllers
 {
     [Route("api/auth")]
-    [ApiController]
     public class AuthController : BaseController
     {
         [HttpPost("register")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         public async Task<IActionResult> Register([FromBody] RegisterUserDto registerUserDto)
         {
             var command = new RegisterUserCommand
@@ -23,6 +23,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
         {
             var command = new LoginUserCommand

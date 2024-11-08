@@ -155,7 +155,7 @@ namespace TaskManagerAPI.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskItem.TaskItem", b =>
+            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskManage.TaskItem", b =>
                 {
                     b.Property<int>("TaskItemId")
                         .ValueGeneratedOnAdd()
@@ -174,10 +174,10 @@ namespace TaskManagerAPI.Persistence.Migrations
 
                     b.HasIndex("TaskListId");
 
-                    b.ToTable("TaskItems", (string)null);
+                    b.ToTable("TaskItems");
                 });
 
-            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskItem.TaskList", b =>
+            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskManage.TaskList", b =>
                 {
                     b.Property<int>("TaskListId")
                         .ValueGeneratedOnAdd()
@@ -195,7 +195,7 @@ namespace TaskManagerAPI.Persistence.Migrations
 
                     b.HasKey("TaskListId");
 
-                    b.ToTable("TaskLists", (string)null);
+                    b.ToTable("TaskLists");
                 });
 
             modelBuilder.Entity("TaskManagerAPI.Domain.Entities.UserManage.AppUser", b =>
@@ -291,7 +291,7 @@ namespace TaskManagerAPI.Persistence.Migrations
 
                     b.HasIndex("RequesterId");
 
-                    b.ToTable("Friendships", (string)null);
+                    b.ToTable("Friendships");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -345,9 +345,9 @@ namespace TaskManagerAPI.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskItem.TaskItem", b =>
+            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskManage.TaskItem", b =>
                 {
-                    b.HasOne("TaskManagerAPI.Domain.Entities.TaskItem.TaskList", "TaskLists")
+                    b.HasOne("TaskManagerAPI.Domain.Entities.TaskManage.TaskList", "TaskLists")
                         .WithMany("TaskItems")
                         .HasForeignKey("TaskListId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -375,7 +375,7 @@ namespace TaskManagerAPI.Persistence.Migrations
                     b.Navigation("Requester");
                 });
 
-            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskItem.TaskList", b =>
+            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskManage.TaskList", b =>
                 {
                     b.Navigation("TaskItems");
                 });

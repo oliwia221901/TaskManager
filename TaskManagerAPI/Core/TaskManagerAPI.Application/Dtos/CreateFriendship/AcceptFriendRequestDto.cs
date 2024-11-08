@@ -5,4 +5,3 @@
         public int FriendshipId { get; set; }
     }
 }
-

@@ -12,7 +12,7 @@ using TaskManagerAPI.Persistence.Context;
 namespace TaskManagerAPI.Persistence.Migrations
 {
     [DbContext(typeof(TaskManagerDbContext))]
-    [Migration("20241101203047_init-taskmanager-friendships")]
+    [Migration("20241108190127_init-taskmanager-friendships")]
     partial class inittaskmanagerfriendships
     {
         /// <inheritdoc />
@@ -158,7 +158,7 @@ namespace TaskManagerAPI.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskItem.TaskItem", b =>
+            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskManage.TaskItem", b =>
                 {
                     b.Property<int>("TaskItemId")
                         .ValueGeneratedOnAdd()
@@ -180,7 +180,7 @@ namespace TaskManagerAPI.Persistence.Migrations
                     b.ToTable("TaskItems");
                 });
 
-            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskItem.TaskList", b =>
+            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskManage.TaskList", b =>
                 {
                     b.Property<int>("TaskListId")
                         .ValueGeneratedOnAdd()
@@ -348,9 +348,9 @@ namespace TaskManagerAPI.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskItem.TaskItem", b =>
+            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskManage.TaskItem", b =>
                 {
-                    b.HasOne("TaskManagerAPI.Domain.Entities.TaskItem.TaskList", "TaskLists")
+                    b.HasOne("TaskManagerAPI.Domain.Entities.TaskManage.TaskList", "TaskLists")
                         .WithMany("TaskItems")
                         .HasForeignKey("TaskListId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -378,7 +378,7 @@ namespace TaskManagerAPI.Persistence.Migrations
                     b.Navigation("Requester");
                 });
 
-            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskItem.TaskList", b =>
+            modelBuilder.Entity("TaskManagerAPI.Domain.Entities.TaskManage.TaskList", b =>
                 {
                     b.Navigation("TaskItems");
                 });

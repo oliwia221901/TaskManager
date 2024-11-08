@@ -8,9 +8,11 @@ namespace TaskManagerAPI.WebAPI.Controllers
 {
     [Route("api/friendships")]
     [Authorize]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public class FriendshipsController : BaseController
     {
         [HttpPost("send")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         public async Task<IActionResult> SendFriendRequest([FromBody] SendFriendRequestDto sendFriendRequestDto)
         {
             var command = new SendFriendRequestCommand
@@ -19,10 +21,11 @@ namespace TaskManagerAPI.WebAPI.Controllers
             };
 
             var result = await Mediator.Send(command);
-            return Ok(result);
+            return Created(string.Empty, result);
         }
 
         [HttpPost("accept")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AcceptFriendRequest([FromBody] AcceptFriendRequestDto acceptFriendRequestDto)
         {
             var command = new AcceptFriendRequestCommand

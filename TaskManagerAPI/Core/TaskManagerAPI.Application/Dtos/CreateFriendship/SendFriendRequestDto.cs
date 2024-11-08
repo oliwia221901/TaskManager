@@ -2,7 +2,7 @@
 {
     public class SendFriendRequestDto
 	{
-        public string FriendId { get; set; }
+        public string FriendName { get; set; }
     }
 }
 

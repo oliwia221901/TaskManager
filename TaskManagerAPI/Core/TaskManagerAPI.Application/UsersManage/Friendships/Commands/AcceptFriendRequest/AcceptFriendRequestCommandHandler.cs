@@ -21,15 +21,15 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFrie
         {
             var userName = _currentUserService.GetCurrentUserName();
 
-            var userId = await _taskManagerDbContext.AppUsers
+            var requesterId = await _taskManagerDbContext.AppUsers
                 .Where(x => x.UserName == userName)
                 .Select(x => x.Id)
                 .SingleOrDefaultAsync(cancellationToken);
 
             var friendship = await _taskManagerDbContext.Friendships
-                .Where(x => (x.RequesterId == userId || x.FriendId == userId) && x.FriendshipId == request.AcceptFriendRequestDto.FriendshipId)
+                .Where(x => x.FriendshipId == request.AcceptFriendRequestDto.FriendshipId)
                 .SingleOrDefaultAsync(cancellationToken)
-                ?? throw new NotFoundException("Relation does not exist.");
+                ?? throw new NotFoundException("Friendship does not exist.");
 
             if (friendship.Status != FriendshipStatus.Pending)
             {
@@ -40,10 +40,8 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFrie
                 };
             }
 
-            if (friendship.RequesterId == userId)
-            {
+            if (friendship.RequesterId == requesterId)
                 throw new BadRequestException("You cannot accept friend invitation from yourself.");
-            }
 
             friendship.Status = FriendshipStatus.Accepted;
             await _taskManagerDbContext.SaveChangesAsync(cancellationToken);

@@ -7,7 +7,7 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFrie
 		public AcceptFriendRequestCommandValidator()
 		{
 			RuleFor(x => x.AcceptFriendRequestDto.FriendshipId)
-				.GreaterThan(0).WithMessage("FriendshipId must be greater than 0.");
+				.GreaterThan(0).WithMessage("FriendshipId must be grater than 0.");
 		}
 	}
 }

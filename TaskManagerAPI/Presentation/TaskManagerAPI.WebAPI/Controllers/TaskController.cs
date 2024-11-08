@@ -10,6 +10,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
 {
     [Route("api/tasks")]
     [Authorize]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public class TaskController : BaseController
     {
         [HttpPost("taskItems")]

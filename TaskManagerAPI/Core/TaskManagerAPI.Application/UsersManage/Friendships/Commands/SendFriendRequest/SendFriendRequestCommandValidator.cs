@@ -6,8 +6,8 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.SendFriend
 	{
 		public SendFriendRequestCommandValidator()
 		{
-			RuleFor(x => x.SendFriendRequestDto.FriendId)
-				.NotEmpty().WithMessage("FriendId is requred.");
+			RuleFor(x => x.SendFriendRequestDto.FriendName)
+				.NotEmpty().WithMessage("FriendName is requred.");
 		}
 	}
 }

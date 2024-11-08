@@ -6,10 +6,10 @@ namespace TaskManagerAPI.Domain.Entities.UserManage
 	{
 		public int FriendshipId { get; set; }
 
-		public string RequesterId { get; set; }
+        public string RequesterId { get; set; }
 		public AppUser Requester { get; set; }
 
-		public string FriendId { get; set; }
+        public string FriendId { get; set; }
 		public AppUser Friend { get; set; }
 
 		public FriendshipStatus Status { get; set; } = FriendshipStatus.Pending;
