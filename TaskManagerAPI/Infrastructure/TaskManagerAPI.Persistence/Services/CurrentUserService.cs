@@ -18,9 +18,7 @@ namespace TaskManagerAPI.Persistence.Services
             var user = _httpContextAccessor.HttpContext?.User;
 
             if (user == null || !user.Identity?.IsAuthenticated == true)
-            {
                 throw new UnauthorizedAccessException("User is not authenticated");
-            }
 
             var claimsIdentity = user.Identity as ClaimsIdentity
                 ?? throw new InvalidOperationException("ClaimsIdentity is null.");

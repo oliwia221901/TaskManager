@@ -37,6 +37,10 @@
     <None Remove="TasksManage\" />
     <None Remove="TasksManage\TaskItems\" />
     <None Remove="TasksManage\TaskLists\" />
+    <None Remove="Dtos\GetFriendshipsForUser\" />
+    <None Remove="UsersManage\Friendships\Commands\DeclineFriendRequest\" />
+    <None Remove="UsersManage\Users\" />
+    <None Remove="Dtos\GetUsers\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
@@ -70,5 +74,9 @@
     <Folder Include="TasksManage\TaskItems\" />
     <Folder Include="TasksManage\TaskItems\" />
     <Folder Include="TasksManage\TaskLists\" />
+    <Folder Include="Dtos\GetFriendshipsForUser\" />
+    <Folder Include="UsersManage\Friendships\Commands\DeclineFriendRequest\" />
+    <Folder Include="UsersManage\Users\" />
+    <Folder Include="Dtos\GetUsers\" />
   </ItemGroup>
 </Project>

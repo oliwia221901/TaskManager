@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TaskManagerAPI.Application.Dtos.CreateFriendship;
 using TaskManagerAPI.Application.Dtos.CreateFriendships;
 using TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFriendRequest;
+using TaskManagerAPI.Application.UsersManage.Friendships.Commands.DeclineFriendRequest;
 using TaskManagerAPI.Application.UsersManage.Friendships.Commands.SendFriendRequest;
+using TaskManagerAPI.Application.UsersManage.Friendships.Queries.GetFriendships;
+using TaskManagerAPI.Domain.Entities.UserManage.Enums;
 
 namespace TaskManagerAPI.WebAPI.Controllers
 {
@@ -13,7 +17,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
     {
         [HttpPost("send")]
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
-        public async Task<IActionResult> SendFriendRequest([FromBody] SendFriendRequestDto sendFriendRequestDto)
+        public async Task<ActionResult> SendFriendRequest([FromBody] SendFriendRequestDto sendFriendRequestDto)
         {
             var command = new SendFriendRequestCommand
             {
@@ -26,7 +30,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
         [HttpPost("accept")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> AcceptFriendRequest([FromBody] AcceptFriendRequestDto acceptFriendRequestDto)
+        public async Task<ActionResult> AcceptFriendRequest([FromBody] AcceptFriendRequestDto acceptFriendRequestDto)
         {
             var command = new AcceptFriendRequestCommand
             {
@@ -34,6 +38,32 @@ namespace TaskManagerAPI.WebAPI.Controllers
             };
 
             var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPost("decline")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> DeclineFriendRequest([FromBody] DeclineFriendRequestDto declineFriendRequestDto)
+        {
+            var command = new DeclineFriendRequestCommand
+            {
+                DeclineFriendRequestDto = declineFriendRequestDto
+            };
+
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpGet("status/{status}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<GetFriendshipsForUserVm>> GetFriendshipsForUser([FromRoute] int status)
+        {
+            var query = new GetFriendshipsForUserQuery
+            {
+                Status = (FriendshipStatus)status
+            };
+
+            var result = await Mediator.Send(query);
             return Ok(result);
         }
     }

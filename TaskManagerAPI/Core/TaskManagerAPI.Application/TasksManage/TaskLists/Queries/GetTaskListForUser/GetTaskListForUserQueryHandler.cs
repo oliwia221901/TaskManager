@@ -22,7 +22,11 @@ namespace TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListFo
 			var userName = _currentUserService.GetCurrentUserName();
 			var taskLists = await GetTaskListByUserName(userName, cancellationToken);
 			var taskListsDto = MapTaskListByIdToDto(taskLists);
-            return new TaskListForUserVm { TaskLists = taskListsDto };
+
+            return new TaskListForUserVm
+			{
+				TaskLists = taskListsDto
+			};
         }
 
 		public async Task<List<TaskList>> GetTaskListByUserName(string username, CancellationToken cancellationToken)
@@ -37,19 +41,18 @@ namespace TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListFo
 
 		private static List<GetTaskListForUserDto> MapTaskListByIdToDto(List<TaskList> taskLists)
 		{
-            var taskItems = taskLists.Select(tl => new GetTaskListForUserDto
-            {
-                TaskListId = tl.TaskListId,
-                TaskListName = tl.TaskListName,
-				UserName = tl.UserName,
-                TaskItems = tl.TaskItems.Select(ti => new GetTaskItemForUserDto
-                {
-                    TaskItemId = ti.TaskItemId,
-                    TaskItemName = ti.TaskItemName
-                }).ToList()
-            }).ToList();
-
-            return taskItems;
+            return taskLists
+				.Select(tl => new GetTaskListForUserDto
+				{
+					TaskListId = tl.TaskListId,
+					TaskListName = tl.TaskListName,
+					UserName = tl.UserName,
+					TaskItems = tl.TaskItems.Select(ti => new GetTaskItemForUserDto
+					{
+						TaskItemId = ti.TaskItemId,
+						TaskItemName = ti.TaskItemName
+					}).ToList()
+				}).ToList();
         }
 	}
 }

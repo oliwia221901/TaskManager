@@ -16,6 +16,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
         [HttpPost("taskItems")]
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<int>> CreateTaskItem([FromBody] CreateTaskItemDto createTaskItemDto)
         {
             var taskItemId = await Mediator.Send(new CreateTaskItemCommand

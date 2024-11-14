@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
+using TaskManagerAPI.Domain.Entities.UserManage;
 using TaskManagerAPI.Domain.Entities.UserManage.Enums;
 
 namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFriendRequest
@@ -21,27 +22,11 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFrie
         {
             var userName = _currentUserService.GetCurrentUserName();
 
-            var requesterId = await _taskManagerDbContext.AppUsers
-                .Where(x => x.UserName == userName)
-                .Select(x => x.Id)
-                .SingleOrDefaultAsync(cancellationToken);
+            var requesterId = await GetRequesterId(userName, cancellationToken);
 
-            var friendship = await _taskManagerDbContext.Friendships
-                .Where(x => x.FriendshipId == request.AcceptFriendRequestDto.FriendshipId)
-                .SingleOrDefaultAsync(cancellationToken)
-                ?? throw new NotFoundException("Friendship does not exist.");
+            var friendship = await GetFriendship(request.AcceptFriendRequestDto.FriendshipId, cancellationToken);
 
-            if (friendship.Status != FriendshipStatus.Pending)
-            {
-                return new AcceptFriendshipVm
-                {
-                    IsSuccess = false,
-                    Status = friendship.Status
-                };
-            }
-
-            if (friendship.RequesterId == requesterId)
-                throw new BadRequestException("You cannot accept friend invitation from yourself.");
+            ValidateAcceptRequest(friendship, requesterId);
 
             friendship.Status = FriendshipStatus.Accepted;
             await _taskManagerDbContext.SaveChangesAsync(cancellationToken);
@@ -51,6 +36,32 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFrie
                 IsSuccess = true,
                 Status = FriendshipStatus.Accepted
             };
+        }
+
+        public async Task<string> GetRequesterId(string userName, CancellationToken cancellationToken)
+        {
+            return await _taskManagerDbContext.AppUsers
+                .Where(x => x.UserName == userName)
+                .Select(x => x.Id)
+                .SingleOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException("User was not found.");
+        }
+
+        public async Task<Friendship> GetFriendship(int friendshipId, CancellationToken cancellationToken)
+        {
+            return await _taskManagerDbContext.Friendships
+                .Where(x => x.FriendshipId == friendshipId)
+                .SingleOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException("Friendship was not found.");
+        }
+
+        public static void ValidateAcceptRequest(Friendship friendship, string requesterId)
+        {
+            if (friendship.RequesterId == requesterId)
+                throw new BadRequestException("You cannot accept friend invitation from yourself.");
+
+            if (friendship.Status != FriendshipStatus.Pending)
+                throw new BadRequestException("Friendship status is not pending.");
         }
     }
 }
