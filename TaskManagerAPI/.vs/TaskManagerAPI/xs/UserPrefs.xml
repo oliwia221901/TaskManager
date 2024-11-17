@@ -1,23 +1,29 @@
 ﻿<Properties StartupConfiguration="{599D67AE-24BE-43C1-81DF-8F21140C6801}|https">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.Presentation.TaskManagerAPI.WebAPI PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Presentation/TaskManagerAPI.WebAPI/Controllers/FriendshipController.cs">
+    <Files>
+      <File FileName="Presentation/TaskManagerAPI.WebAPI/Controllers/FriendshipController.cs" Line="59" Column="40" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="TaskManagerAPI" expanded="True">
+          <Node name="TaskManagerAPI">
             <Node name="Core" expanded="True">
-              <Node name="TaskManagerAPI.Application">
-                <Node name="Dtos" expanded="True" />
-                <Node name="TasksManage" expanded="True" />
+              <Node name="TaskManagerAPI.Application" expanded="True">
+                <Node name="UsersManage" expanded="True">
+                  <Node name="Friendships" expanded="True">
+                    <Node name="Queries" expanded="True">
+                      <Node name="GetFriendships" expanded="True" />
+                    </Node>
+                  </Node>
+                </Node>
               </Node>
-              <Node name="TaskManagerAPI.Domain" expanded="True">
+              <Node name="TaskManagerAPI.Domain">
                 <Node name="Entities" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="Presentation" expanded="True">
+              <Node name="TaskManagerAPI.WebAPI">
+                <Node name="Controllers" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -25,4 +31,11 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Presentation.TaskManagerAPI.WebAPI PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
 </Properties>

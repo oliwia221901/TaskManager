@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Eos0OeXdhOemBnIeBa2Ppe3Ti8P6MpnUZaZJqFjO5d3Ur9a4a+858jeLs0GTcQBRu5iIXWuc7yhvlFhfezMBiQ==",
+  "dgSpecHash": "hxdtBunwFutXpdysF1mUq6YAH1sWmAmJV2dgQDa0ThWXhDckiaXOrgH/ZCmSOlMdKbK1TvQV+ftpvUbGk/iaVg==",
   "success": true,
-  "projectFilePath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
+  "projectFilePath": "/Users/oliwia/Desktop/untitled folder/TaskManager/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
   "expectedPackageFiles": [
     "/Users/oliwia/.nuget/packages/microsoft.aspnetcore.cryptography.internal/8.0.10/microsoft.aspnetcore.cryptography.internal.8.0.10.nupkg.sha512",
     "/Users/oliwia/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/8.0.10/microsoft.aspnetcore.cryptography.keyderivation.8.0.10.nupkg.sha512",

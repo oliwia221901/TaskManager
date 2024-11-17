@@ -820,11 +820,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
+      "projectUniqueName": "/Users/oliwia/Desktop/untitled folder/TaskManager/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
       "projectName": "TaskManagerAPI.Domain",
-      "projectPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
+      "projectPath": "/Users/oliwia/Desktop/untitled folder/TaskManager/TaskManagerAPI/Core/TaskManagerAPI.Domain/TaskManagerAPI.Domain.csproj",
       "packagesPath": "/Users/oliwia/.nuget/packages/",
-      "outputPath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/",
+      "outputPath": "/Users/oliwia/Desktop/untitled folder/TaskManager/TaskManagerAPI/Core/TaskManagerAPI.Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/oliwia/.nuget/NuGet/NuGet.Config"
@@ -845,11 +845,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {

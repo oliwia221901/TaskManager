@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vsWwOyBvS9cHTteNGBSiyEW1PE/S8Bp20Nyg6r6FZksEcVFa45+qiqEy6CE7qoyHCXTrMHhXNoPU9eWphApz0g==",
+  "dgSpecHash": "wZmCMzqnb09t19hooyoeAIZpJmIjkF8nOkWvIsQ6ZDKsxMqBJ004Zs9wMZhdce07tYzCWxa9oEPAYODOsRfWsQ==",
   "success": true,
-  "projectFilePath": "/Users/oliwia/Documents/UKEN/Projekt_Inz/Repository/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj",
+  "projectFilePath": "/Users/oliwia/Desktop/untitled folder/TaskManager/TaskManagerAPI/Core/TaskManagerAPI.Application/TaskManagerAPI.Application.csproj",
   "expectedPackageFiles": [
     "/Users/oliwia/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/oliwia/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
