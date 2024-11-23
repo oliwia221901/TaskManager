@@ -21,3 +21,5 @@
 
 # Ignoruj foldery publikacji
 publish/
+
+**/obj/
