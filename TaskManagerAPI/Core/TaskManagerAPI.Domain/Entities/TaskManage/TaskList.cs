@@ -7,6 +7,6 @@
 
 		public IEnumerable<TaskItem> TaskItems { get; set; }
 
-        public string UserName { get; set; }
+        public string UserId { get; set; }
     }
 }

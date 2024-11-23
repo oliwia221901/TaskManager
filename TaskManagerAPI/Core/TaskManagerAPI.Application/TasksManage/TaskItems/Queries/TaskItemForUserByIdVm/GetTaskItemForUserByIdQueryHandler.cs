@@ -3,34 +3,54 @@ using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Application.Dtos.GetTaskItemForUserById;
-using TaskManagerAPI.Application.TasksManage.TaskItems.Queries;
 using TaskManagerAPI.Domain.Entities.TaskManage;
+using TaskManagerAPI.Application.TasksManage.TaskItems.Queries;
+using TaskManagerAPI.Domain.Entities.PermissionManage.Enums;
 
 namespace TaskManagerAPI.Application.TaskItems.Queries
 {
     public class GetTaskItemForUserByIdQueryHandler : IRequestHandler<GetTaskItemForUserByIdQuery, TaskItemForUserByIdVm>
-	{
-		private readonly ITaskManagerDbContext _taskManagerDbContext;
-		private readonly ICurrentUserService _currentUserService;
-		private readonly ITaskAuthorizationService _taskAuthorizationService;
+    {
+        private readonly ITaskManagerDbContext _taskManagerDbContext;
+        private readonly ICurrentUserService _currentUserService;
+        private readonly IAccessControlService _accessControlService;
 
-		public GetTaskItemForUserByIdQueryHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService, ITaskAuthorizationService taskAuthorizationService)
-		{
-			_taskManagerDbContext = taskManagerDbContext;
-			_currentUserService = currentUserService;
-			_taskAuthorizationService = taskAuthorizationService;
-		}
+        public GetTaskItemForUserByIdQueryHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService, IAccessControlService accessControlService)
+        {
+            _taskManagerDbContext = taskManagerDbContext;
+            _currentUserService = currentUserService;
+            _accessControlService = accessControlService;
+        }
 
-		public async Task<TaskItemForUserByIdVm> Handle(GetTaskItemForUserByIdQuery request, CancellationToken cancellationToken)
-		{
-			var userName = _currentUserService.GetCurrentUserName();
-			var taskLists = await GetTaskListByUserName(userName, request.TaskItemId, cancellationToken);
-            await _taskAuthorizationService.AuthorizeAccessToTaskItem(request.TaskItemId);
-            var taskListsDto = MapTaskListsToDto(taskLists, request.TaskItemId);
-			return new TaskItemForUserByIdVm { TaskLists = taskListsDto };
-		}
+        public async Task<TaskItemForUserByIdVm> Handle(GetTaskItemForUserByIdQuery request, CancellationToken cancellationToken)
+        {
+            var userName = _currentUserService.GetCurrentUserName();
 
-        public async Task<List<TaskList>> GetTaskListByUserName(string username, int taskItemId, CancellationToken cancellationToken)
+            var taskLists = await GetTaskListByUserName(request.TaskItemId, cancellationToken);
+
+            var userId = await GetUserId(userName, cancellationToken);
+
+            await _accessControlService.EnsureUserHasAccess(userId, request.TaskItemId, PermissionLevel.ReadOnly, cancellationToken);
+
+            var creatorId = await GetCreatorId(request, cancellationToken);
+
+            var creatorName = await GetCreatorName(creatorId, cancellationToken);
+
+            var taskListsDto = MapTaskListsToDto(taskLists, request.TaskItemId, creatorName);
+
+            return new TaskItemForUserByIdVm { TaskLists = taskListsDto };
+        }
+
+        private async Task<string> GetUserId(string userName, CancellationToken cancellationToken)
+        {
+            return await _taskManagerDbContext.AppUsers
+                .Where(x => x.UserName == userName)
+                .Select(x => x.Id)
+                .SingleOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException("UserId was not found.");
+        }
+
+        private async Task<List<TaskList>> GetTaskListByUserName(int taskItemId, CancellationToken cancellationToken)
         {
             var taskItemExists = await _taskManagerDbContext.TaskItems
                 .AnyAsync(ti => ti.TaskItemId == taskItemId, cancellationToken);
@@ -39,33 +59,49 @@ namespace TaskManagerAPI.Application.TaskItems.Queries
                 throw new NotFoundException($"TaskItemId {taskItemId} was not found.");
 
             var taskLists = await _taskManagerDbContext.TaskLists
-                .Where(tl => tl.UserName == username &&
-                             tl.TaskItems.Any(ti => ti.TaskItemId == taskItemId))
+                .Where(tl => tl.TaskItems.Any(ti => ti.TaskItemId == taskItemId))
                 .Include(tl => tl.TaskItems)
                 .ToListAsync(cancellationToken);
 
             return taskLists;
         }
 
-        private static List<GetTaskListForUserByIdDto> MapTaskListsToDto(List<TaskList> taskLists, int taskItemId)
-		{
-			var taskItems = taskLists
+        private async Task<string> GetCreatorId(GetTaskItemForUserByIdQuery request, CancellationToken cancellationToken)
+        {
+            return await _taskManagerDbContext.TaskItems
+                .Include(x => x.TaskLists)
+                .Where(x => x.TaskItemId == request.TaskItemId)
+                .Select(x => x.TaskLists.UserId)
+                .SingleOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException("CreatorId was not found.");
+        }
+
+        private async Task<string> GetCreatorName(string creatorId, CancellationToken cancellationToken)
+        {
+            return await _taskManagerDbContext.AppUsers
+                .Where(x => x.Id == creatorId)
+                .Select(x => x.UserName)
+                .SingleOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException("CreatorName was not found.");
+        }
+
+        private static List<GetTaskListForUserByIdDto> MapTaskListsToDto(List<TaskList> taskLists, int taskItemId, string creatorName)
+        {
+            return taskLists
                 .Where(tl => tl.TaskItems.Any())
-				.Select(tk => new GetTaskListForUserByIdDto
-				{
-					TaskListId = tk.TaskListId,
-					TaskListName = tk.TaskListName,
-					UserName = tk.UserName,
-					TaskItems = tk.TaskItems
+                .Select(tk => new GetTaskListForUserByIdDto
+                {
+                    TaskListId = tk.TaskListId,
+                    TaskListName = tk.TaskListName,
+                    UserName = creatorName,
+                    TaskItems = tk.TaskItems
                         .Where(ti => ti.TaskItemId == taskItemId)
                         .Select(ti => new GetTaskItemForUserByIdDto
-						{
-							TaskItemId = ti.TaskItemId,
-							TaskItemName = ti.TaskItemName
-						}).ToList()
-				}).ToList();
-
-			return taskItems;
-		}
-	}
+                        {
+                            TaskItemId = ti.TaskItemId,
+                            TaskItemName = ti.TaskItemName
+                        }).ToList()
+                }).ToList();
+        }
+    }
 }

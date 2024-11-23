@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagerAPI.Application.Dtos.CreateTask;
+using TaskManagerAPI.Application.Dtos.UpdateTask;
 using TaskManagerAPI.Application.TasksManage.TaskItems.Commands;
+using TaskManagerAPI.Application.TasksManage.TaskItems.Commands.UpdateTaskItem;
 using TaskManagerAPI.Application.TasksManage.TaskItems.Queries;
 using TaskManagerAPI.Application.TasksManage.TaskLists.Commands;
 using TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListForUser;
@@ -62,6 +64,21 @@ namespace TaskManagerAPI.WebAPI.Controllers
             var result = await Mediator.Send(query);
             return Ok(result);
         }
+
+        [HttpPut("taskItems/{taskItemId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult> UpdateTaskItem([FromRoute] int taskItemId, [FromBody] UpdateTaskItemDto updateTaskItemDto)
+        {
+            var query = new UpdateTaskItemCommand
+            {
+                UpdateTaskItemDto = updateTaskItemDto
+            };
+
+            await Mediator.Send(query);
+            return NoContent();
+        }
     }
 }
-

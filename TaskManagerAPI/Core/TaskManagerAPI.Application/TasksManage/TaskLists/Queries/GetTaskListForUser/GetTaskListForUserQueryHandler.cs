@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Application.Dtos.GetTaskListForUser;
 using TaskManagerAPI.Domain.Entities.TaskManage;
@@ -20,8 +21,9 @@ namespace TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListFo
 		public async Task<TaskListForUserVm> Handle(GetTaskListForUserQuery request, CancellationToken cancellationToken)
 		{
 			var userName = _currentUserService.GetCurrentUserName();
-			var taskLists = await GetTaskListByUserName(userName, cancellationToken);
-			var taskListsDto = MapTaskListByIdToDto(taskLists);
+			var currentUserId = await GetCurrentUserId(userName, cancellationToken);
+			var taskLists = await GetTaskListByUserId(currentUserId, cancellationToken);
+			var taskListsDto = MapTaskListByIdToDto(taskLists, userName);
 
             return new TaskListForUserVm
 			{
@@ -29,24 +31,33 @@ namespace TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListFo
 			};
         }
 
-		public async Task<List<TaskList>> GetTaskListByUserName(string username, CancellationToken cancellationToken)
+		private async Task<string> GetCurrentUserId(string userName, CancellationToken cancellationToken)
 		{
-			var taskListByUserName = await _taskManagerDbContext.TaskLists
-				.Where(tl => tl.UserName == username)
+			return await _taskManagerDbContext.AppUsers
+				.Where(x => x.UserName == userName)
+				.Select(x => x.Id)
+				.SingleOrDefaultAsync(cancellationToken)
+				?? throw new NotFoundException("CurrentUserId was not found.");
+		}
+
+		private async Task<List<TaskList>> GetTaskListByUserId(string currentUserId, CancellationToken cancellationToken)
+		{
+			var taskListByUserId = await _taskManagerDbContext.TaskLists
+				.Where(tl => tl.UserId == currentUserId)
 				.Include(tl => tl.TaskItems)
 				.ToListAsync(cancellationToken);
 
-			return taskListByUserName;
+			return taskListByUserId;
 		}
 
-		private static List<GetTaskListForUserDto> MapTaskListByIdToDto(List<TaskList> taskLists)
+		private static List<GetTaskListForUserDto> MapTaskListByIdToDto(List<TaskList> taskLists, string userName)
 		{
             return taskLists
 				.Select(tl => new GetTaskListForUserDto
 				{
 					TaskListId = tl.TaskListId,
 					TaskListName = tl.TaskListName,
-					UserName = tl.UserName,
+					UserName = userName,
 					TaskItems = tl.TaskItems.Select(ti => new GetTaskItemForUserDto
 					{
 						TaskItemId = ti.TaskItemId,

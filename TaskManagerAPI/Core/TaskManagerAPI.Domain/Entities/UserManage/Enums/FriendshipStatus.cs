@@ -4,7 +4,6 @@
 	{
 		Pending,
 		Accepted,
-		Declined,
-		NoInteraction
+		Declined
 	}
 }

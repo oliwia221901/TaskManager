@@ -8,7 +8,7 @@ namespace TaskManagerAPI.Persistence.Services
     public class TaskAuthorizationService : ITaskAuthorizationService
     {
         private readonly ICurrentUserService _currentUserService;
-        private readonly TaskManagerDbContext _taskManagerDbContext;
+        private readonly ITaskManagerDbContext _taskManagerDbContext;
 
         public TaskAuthorizationService(ICurrentUserService currentUserService, TaskManagerDbContext taskManagerDbContext)
         {
@@ -16,28 +16,41 @@ namespace TaskManagerAPI.Persistence.Services
             _taskManagerDbContext = taskManagerDbContext;
         }
 
-        public async Task AuthorizeAccessToTaskItem(int taskItemId)
+        public async Task AuthorizeAccessToTaskItem(int taskItemId, CancellationToken cancellationToken)
         {
             var currentUserName = _currentUserService.GetCurrentUserName();
 
+            var currentUserId = await GetCurrentUserId(currentUserName, cancellationToken);
+
             var hasAccess = await _taskManagerDbContext.TaskLists
-                .AnyAsync(tl => tl.UserName == currentUserName &&
+                .AnyAsync(tl => tl.UserId == currentUserId &&
                                 tl.TaskItems.Any(ti => ti.TaskItemId == taskItemId));
 
             if (!hasAccess)
                 throw new ForbiddenAccessException($"Unauthorized access.");
         }
 
-        public async Task AuthorizeAccessToTaskList(int taskListId)
+        public async Task AuthorizeAccessToTaskList(int taskListId, CancellationToken cancellationToken)
         {
             var currentUserName = _currentUserService.GetCurrentUserName();
 
+            var currentUserId = await GetCurrentUserId(currentUserName, cancellationToken);
+
             var hasAccess = await _taskManagerDbContext.TaskLists
-                .AnyAsync(tl => tl.UserName == currentUserName &&
+                .AnyAsync(tl => tl.UserId == currentUserId &&
                                 tl.TaskListId == taskListId);
 
             if (!hasAccess)
                 throw new ForbiddenAccessException($"Unauthorized access.");
+        }
+
+        private async Task<string> GetCurrentUserId(string currentUserName, CancellationToken cancellationToken)
+        {
+            return await _taskManagerDbContext.AppUsers
+                .Where(x => x.UserName == currentUserName)
+                .Select(x => x.Id)
+                .SingleOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException("CurrentUserId was not found.");
         }
     }
 }

@@ -41,6 +41,11 @@
     <None Remove="UsersManage\Friendships\Commands\DeclineFriendRequest\" />
     <None Remove="UsersManage\Users\" />
     <None Remove="Dtos\GetUsers\" />
+    <None Remove="Dtos\CreatePermission\" />
+    <None Remove="PermissionsManage\" />
+    <None Remove="PermissionsManage\Commands\" />
+    <None Remove="TasksManage\TaskItems\Commands\UpdateTaskItem\" />
+    <None Remove="Dtos\UpdateTask\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
@@ -78,5 +83,10 @@
     <Folder Include="UsersManage\Friendships\Commands\DeclineFriendRequest\" />
     <Folder Include="UsersManage\Users\" />
     <Folder Include="Dtos\GetUsers\" />
+    <Folder Include="Dtos\CreatePermission\" />
+    <Folder Include="PermissionsManage\" />
+    <Folder Include="PermissionsManage\Commands\" />
+    <Folder Include="TasksManage\TaskItems\Commands\UpdateTaskItem\" />
+    <Folder Include="Dtos\UpdateTask\" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 {
     public interface ITaskAuthorizationService
     {
-        Task AuthorizeAccessToTaskItem(int taskItemId);
-        Task AuthorizeAccessToTaskList(int taskListId);
+        Task AuthorizeAccessToTaskItem(int taskItemId, CancellationToken cancellationToken);
+        Task AuthorizeAccessToTaskList(int taskListId, CancellationToken cancellationToken);
     }
 }

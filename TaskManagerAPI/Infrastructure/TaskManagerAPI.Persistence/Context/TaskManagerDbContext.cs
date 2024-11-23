@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Interfaces;
+using TaskManagerAPI.Domain.Entities.PermissionManage;
 using TaskManagerAPI.Domain.Entities.TaskManage;
 using TaskManagerAPI.Domain.Entities.UserManage;
 
@@ -17,6 +18,7 @@ namespace TaskManagerAPI.Persistence.Context
         public DbSet<TaskList> TaskLists { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

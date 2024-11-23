@@ -1,33 +1,23 @@
-# macOS-specific files
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon files
-Icon?
-._*
-
-# Thumbnails
-._*.jpg
-._*.png
-._*.gif
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-
-# Directories potentially created on network or USB volumes
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-# Ignore obj and bin directories
+# Ignoruj katalogi bin i obj
 /bin/
 /obj/
+
+# Ignoruj pliki macOS
+.DS_Store
+
+# Ignoruj pliki cache i konfiguracji IDE
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignoruj buildy
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# Ignoruj foldery publikacji
+publish/
