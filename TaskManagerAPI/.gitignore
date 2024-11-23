@@ -1,25 +1,22 @@
-# Ignoruj katalogi bin i obj
-/bin/
-/obj/
-
-# Ignoruj pliki macOS
+# Ignorowanie plików i katalogów systemowych specyficznych dla macOS
 .DS_Store
+.AppleDouble
+.LSOverride
 
-# Ignoruj pliki cache i konfiguracji IDE
+# Ignorowanie katalogów tworzących się w Visual Studio
 .vs/
-*.suo
+
+# Ignorowanie katalogów kompilacji
+bin/
+obj/
+
+# Ignorowanie plików generowanych przez macOS i aplikacje
+Thumbs.db
+Desktop.ini
+
+# Ignorowanie plików kompilacyjnych i generowanych przez IDE
+*.log
 *.user
 *.userosscache
+*.suo
 *.sln.docstates
-
-# Ignoruj buildy
-*.dll
-*.exe
-*.pdb
-*.cache
-*.log
-
-# Ignoruj foldery publikacji
-publish/
-
-**/obj/
