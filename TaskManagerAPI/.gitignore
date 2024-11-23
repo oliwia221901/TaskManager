@@ -1,4 +1,5 @@
 # Ignorowanie plików i katalogów systemowych specyficznych dla macOS
+../.DS_Store
 .DS_Store
 .AppleDouble
 .LSOverride
