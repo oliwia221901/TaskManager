@@ -5,6 +5,7 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands.UpdateTaskIt
 {
     public class UpdateTaskItemCommand : IRequest
     {
+        public int TaskItemId { get; set; }
         public UpdateTaskItemDto UpdateTaskItemDto { get; set; }
     }
 }

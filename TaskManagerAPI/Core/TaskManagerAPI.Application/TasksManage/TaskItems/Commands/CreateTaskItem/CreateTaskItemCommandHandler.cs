@@ -27,11 +27,11 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
 
             var userId = await GetUserId(userName, cancellationToken);
 
-            await EnsureTaskListExists(request.CreateTaskItemDto.TaskListId, cancellationToken);
+            await EnsureTaskListExists(request.TaskListId, cancellationToken);
 
-            await _accessControlService.EnsureUserHasAccess(userId, request.CreateTaskItemDto.TaskListId, PermissionLevel.FullControl, cancellationToken);
+            await _accessControlService.EnsureUserHasAccess(userId, request.TaskListId, PermissionLevel.FullControl, cancellationToken);
 
-            var taskItem = CreateTaskItem(request.CreateTaskItemDto, userId);
+            var taskItem = CreateTaskItem(request.TaskListId, request.CreateTaskItemDto, userId);
 
             _taskManagerDbContext.TaskItems.Add(taskItem);
 
@@ -58,12 +58,12 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
                 throw new NotFoundException($"TaskListId {taskListId} was not found.");
         }
 
-        private static TaskItem CreateTaskItem(CreateTaskItemDto createTaskItemDto, string userId)
+        private static TaskItem CreateTaskItem(int taskListId, CreateTaskItemDto createTaskItemDto, string userId)
         {
             return new TaskItem
             {
                 TaskItemName = createTaskItemDto.TaskItemName,
-                TaskListId = createTaskItemDto.TaskListId,
+                TaskListId = taskListId,
                 CreatedByUser = userId,
                 CreatedAt = DateTime.Now
             };

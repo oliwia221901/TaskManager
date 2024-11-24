@@ -4,6 +4,7 @@ using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Application.TasksManage.TaskItems.Commands.UpdateTaskItem;
 using TaskManagerAPI.Domain.Entities.PermissionManage.Enums;
+using TaskManagerAPI.Domain.Entities.TaskManage;
 
 namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
 {
@@ -26,13 +27,11 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
         public async Task<Unit> Handle(UpdateTaskItemCommand request, CancellationToken cancellationToken)
         {
             var userName = _currentUserService.GetCurrentUserName();
-            var currentUserId = await GetRequesterId(userName, cancellationToken);
+            var userId = await GetUserId(userName, cancellationToken);
 
-            await _accessControlService.EnsureUserHasAccess(currentUserId, request.UpdateTaskItemDto.TaskItemId, PermissionLevel.ReadWrite, cancellationToken);
+            var taskItem = await GetTaskItem(request, cancellationToken);
 
-            var taskItem = await _taskManagerDbContext.TaskItems
-                .SingleOrDefaultAsync(ti => ti.TaskItemId == request.UpdateTaskItemDto.TaskItemId, cancellationToken)
-                ?? throw new NotFoundException($"TaskItemId {request.UpdateTaskItemDto.TaskItemId} was not found.");
+            await _accessControlService.EnsureUserHasAccess(userId, request.TaskItemId, PermissionLevel.ReadWrite, cancellationToken);
 
             taskItem.TaskItemName = request.UpdateTaskItemDto.TaskItemName;
 
@@ -42,13 +41,20 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
             return Unit.Value;
         }
 
-        private async Task<string> GetRequesterId(string userName, CancellationToken cancellationToken)
+        private async Task<string> GetUserId(string userName, CancellationToken cancellationToken)
         {
             return await _taskManagerDbContext.AppUsers
                 .Where(u => u.UserName == userName)
                 .Select(u => u.Id)
                 .SingleOrDefaultAsync(cancellationToken)
-                ?? throw new NotFoundException("Requester was not found.");
+                ?? throw new NotFoundException("UserId was not found.");
+        }
+
+        private async Task<TaskItem> GetTaskItem(UpdateTaskItemCommand request, CancellationToken cancellationToken)
+        {
+            return await _taskManagerDbContext.TaskItems
+                .SingleOrDefaultAsync(ti => ti.TaskItemId == request.TaskItemId, cancellationToken)
+                ?? throw new NotFoundException($"TaskItemId {request.TaskItemId} was not found.");
         }
     }
 }

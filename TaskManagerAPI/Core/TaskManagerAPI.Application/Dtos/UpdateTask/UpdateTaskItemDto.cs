@@ -2,7 +2,6 @@
 {
     public class UpdateTaskItemDto
     {
-        public int TaskItemId { get; set; }
         public string TaskItemName { get; set; }
     }
 }

@@ -15,14 +15,15 @@ namespace TaskManagerAPI.WebAPI.Controllers
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public class TaskController : BaseController
     {
-        [HttpPost("taskItems")]
+        [HttpPost("taskItems/{taskListId}")]
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<int>> CreateTaskItem([FromBody] CreateTaskItemDto createTaskItemDto)
+        public async Task<ActionResult<int>> CreateTaskItem([FromRoute] int taskListId, [FromBody] CreateTaskItemDto createTaskItemDto)
         {
             var taskItemId = await Mediator.Send(new CreateTaskItemCommand
             {
+                TaskListId = taskListId,
                 CreateTaskItemDto = createTaskItemDto
             });
 
@@ -74,6 +75,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
         {
             var query = new UpdateTaskItemCommand
             {
+                TaskItemId = taskItemId,
                 UpdateTaskItemDto = updateTaskItemDto
             };
 

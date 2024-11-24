@@ -10,7 +10,7 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands.CreateTaskIt
 				.NotEmpty().WithMessage("TaskItemName is required.")
 				.Length(3, 40).WithMessage("TaskItemName must be between 3 and 40 characters");
 
-			RuleFor(x => x.CreateTaskItemDto.TaskListId)
+			RuleFor(x => x.TaskListId)
 				.GreaterThan(0).WithMessage("TaskListId must be greater than 0.");
 		}
 	}
