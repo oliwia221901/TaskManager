@@ -14,7 +14,7 @@ namespace TaskManagerAPI.Application.Services
             _taskManagerDbContext = taskManagerDbContext;
         }
 
-        public async Task EnsureUserHasAccess(string userId, int taskItemId, PermissionLevel requiredLevel, CancellationToken cancellationToken)
+        public async Task CheckReadUpdateRights(string userId, int taskItemId, PermissionLevel requiredLevel, CancellationToken cancellationToken)
         {
             if (await IsUserTaskListCreator(userId, taskItemId, cancellationToken))
                 return;
@@ -22,6 +22,13 @@ namespace TaskManagerAPI.Application.Services
             await CheckTaskItemPermissions(userId, taskItemId, requiredLevel, cancellationToken);
         }
 
+        public async Task CheckCreateDeleteRights(string userId, int taskListId, PermissionLevel requiredLevel, CancellationToken cancellationToken)
+        {
+            if (await IsUserTaskListCreatorCreate(userId, taskListId, cancellationToken))
+                return;
+
+            await CheckTaskItemPermissions(userId, taskListId, requiredLevel, cancellationToken);
+        }
 
         private async Task<bool> IsUserTaskListCreator(string userId, int taskItemId, CancellationToken cancellationToken)
         {
@@ -29,6 +36,14 @@ namespace TaskManagerAPI.Application.Services
                 .Include(tl => tl.TaskLists)
                 .Where(ti => ti.TaskItemId == taskItemId)
                 .Select(ti => ti.TaskLists.UserId)
+                .AnyAsync(creatorId => creatorId == userId, cancellationToken);
+        }
+
+        private async Task<bool> IsUserTaskListCreatorCreate(string userId, int taskListId, CancellationToken cancellationToken)
+        {
+            return await _taskManagerDbContext.TaskLists
+                .Where(ti => ti.TaskListId == taskListId)
+                .Select(ti => ti.UserId)
                 .AnyAsync(creatorId => creatorId == userId, cancellationToken);
         }
 
@@ -42,7 +57,7 @@ namespace TaskManagerAPI.Application.Services
                 .Any(p => IsSufficientPermissionLevel(p.Level, requiredLevel));
 
             if (!hasPermission)
-                throw new ForbiddenAccessException($"You do not have the required {requiredLevel} permission for this TaskItem.");
+                throw new ForbiddenAccessException($"Unauthorized access. Required {requiredLevel} permission for this operation.");
         }
 
         private static bool IsSufficientPermissionLevel(PermissionLevel userLevel, PermissionLevel requiredLevel)
@@ -56,5 +71,4 @@ namespace TaskManagerAPI.Application.Services
             };
         }
     }
-
 }

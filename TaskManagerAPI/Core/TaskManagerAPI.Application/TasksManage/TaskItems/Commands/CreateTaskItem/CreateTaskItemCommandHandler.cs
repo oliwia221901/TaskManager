@@ -27,9 +27,9 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
 
             var userId = await GetUserId(userName, cancellationToken);
 
-            await EnsureTaskListExists(request.TaskListId, cancellationToken);
+            await CheckTaskListExists(request.TaskListId, cancellationToken);
 
-            await _accessControlService.EnsureUserHasAccess(userId, request.TaskListId, PermissionLevel.FullControl, cancellationToken);
+            await _accessControlService.CheckCreateDeleteRights(userId, request.TaskListId, PermissionLevel.FullControl, cancellationToken);
 
             var taskItem = CreateTaskItem(request.TaskListId, request.CreateTaskItemDto, userId);
 
@@ -49,7 +49,7 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
                 ?? throw new NotFoundException("UserId was not found.");
         }
 
-        private async Task EnsureTaskListExists(int taskListId, CancellationToken cancellationToken)
+        private async Task CheckTaskListExists(int taskListId, CancellationToken cancellationToken)
         {
             var taskListExists = await _taskManagerDbContext.TaskLists
                 .AnyAsync(t => t.TaskListId == taskListId, cancellationToken);

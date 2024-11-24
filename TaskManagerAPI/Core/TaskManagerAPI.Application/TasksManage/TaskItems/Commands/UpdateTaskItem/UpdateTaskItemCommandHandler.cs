@@ -31,9 +31,11 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
 
             var taskItem = await GetTaskItem(request, cancellationToken);
 
-            await _accessControlService.EnsureUserHasAccess(userId, request.TaskItemId, PermissionLevel.ReadWrite, cancellationToken);
+            await _accessControlService.CheckReadUpdateRights(userId, request.TaskItemId, PermissionLevel.ReadWrite, cancellationToken);
 
             taskItem.TaskItemName = request.UpdateTaskItemDto.TaskItemName;
+            taskItem.LastModifiedAt = DateTime.Now;
+            taskItem.LastModifiedByUser = userId;
 
             _taskManagerDbContext.TaskItems.Update(taskItem);
             await _taskManagerDbContext.SaveChangesAsync(cancellationToken);
