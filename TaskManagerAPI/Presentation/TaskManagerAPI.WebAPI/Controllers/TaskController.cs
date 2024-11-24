@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using TaskManagerAPI.Application.Dtos.CreateTask;
 using TaskManagerAPI.Application.Dtos.UpdateTask;
 using TaskManagerAPI.Application.TasksManage.TaskItems.Commands;
+using TaskManagerAPI.Application.TasksManage.TaskItems.Commands.DeleteTaskItem;
 using TaskManagerAPI.Application.TasksManage.TaskItems.Commands.UpdateTaskItem;
 using TaskManagerAPI.Application.TasksManage.TaskItems.Queries;
 using TaskManagerAPI.Application.TasksManage.TaskLists.Commands;
+using TaskManagerAPI.Application.TasksManage.TaskLists.Commands.DeleteTaskList;
 using TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListForUser;
 
 namespace TaskManagerAPI.WebAPI.Controllers
@@ -77,6 +79,38 @@ namespace TaskManagerAPI.WebAPI.Controllers
             {
                 TaskItemId = taskItemId,
                 UpdateTaskItemDto = updateTaskItemDto
+            };
+
+            await Mediator.Send(query);
+            return NoContent();
+        }
+
+        [HttpDelete("taskItems/{taskItemId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult> DeleteTaskItem([FromRoute] int taskItemId)
+        {
+            var query = new DeleteTaskItemCommand
+            {
+                TaskItemId = taskItemId
+            };
+
+            await Mediator.Send(query);
+            return NoContent();
+        }
+
+        [HttpDelete("taskLists/{taskListId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult> DeleteTaskList([FromRoute] int taskListId)
+        {
+            var query = new DeleteTaskListCommand
+            {
+                TaskListId = taskListId
             };
 
             await Mediator.Send(query);

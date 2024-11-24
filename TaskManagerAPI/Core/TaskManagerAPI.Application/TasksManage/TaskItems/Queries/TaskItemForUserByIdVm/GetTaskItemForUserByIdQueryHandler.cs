@@ -30,11 +30,11 @@ namespace TaskManagerAPI.Application.TaskItems.Queries
 
             var userId = await GetUserId(userName, cancellationToken);
 
-            await _accessControlService.CheckReadUpdateRights(userId, request.TaskItemId, PermissionLevel.ReadOnly, cancellationToken);
+            await _accessControlService.CheckRightsByTaskItem(userId, request.TaskItemId, PermissionLevel.ReadOnly, cancellationToken);
 
-            var creatorId = await GetCreatorId(request, cancellationToken);
+            var taskListCreatorId = await GetTaskListCreatorId(request, cancellationToken);
 
-            var creatorName = await GetCreatorName(creatorId, cancellationToken);
+            var creatorName = await GetTaskListCreatorName(taskListCreatorId, cancellationToken);
 
             var taskListsDto = MapTaskListsToDto(taskLists, request.TaskItemId, creatorName);
 
@@ -66,7 +66,7 @@ namespace TaskManagerAPI.Application.TaskItems.Queries
             return taskLists;
         }
 
-        private async Task<string> GetCreatorId(GetTaskItemForUserByIdQuery request, CancellationToken cancellationToken)
+        private async Task<string> GetTaskListCreatorId(GetTaskItemForUserByIdQuery request, CancellationToken cancellationToken)
         {
             return await _taskManagerDbContext.TaskItems
                 .Include(x => x.TaskLists)
@@ -76,10 +76,10 @@ namespace TaskManagerAPI.Application.TaskItems.Queries
                 ?? throw new NotFoundException("CreatorId was not found.");
         }
 
-        private async Task<string> GetCreatorName(string creatorId, CancellationToken cancellationToken)
+        private async Task<string> GetTaskListCreatorName(string taskListCreatorId, CancellationToken cancellationToken)
         {
             return await _taskManagerDbContext.AppUsers
-                .Where(x => x.Id == creatorId)
+                .Where(x => x.Id == taskListCreatorId)
                 .Select(x => x.UserName)
                 .SingleOrDefaultAsync(cancellationToken)
                 ?? throw new NotFoundException("CreatorName was not found.");
@@ -99,7 +99,11 @@ namespace TaskManagerAPI.Application.TaskItems.Queries
                         .Select(ti => new GetTaskItemForUserByIdDto
                         {
                             TaskItemId = ti.TaskItemId,
-                            TaskItemName = ti.TaskItemName
+                            TaskItemName = ti.TaskItemName,
+                            CreatedByUser = ti.CreatedByUser,
+                            CreatedAt = ti.CreatedAt,
+                            LastModifiedByUser = ti.LastModifiedByUser,
+                            LastModifiedAt = ti.LastModifiedAt
                         }).ToList()
                 }).ToList();
         }

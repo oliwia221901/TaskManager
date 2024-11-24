@@ -31,11 +31,9 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
 
             var taskItem = await GetTaskItem(request, cancellationToken);
 
-            await _accessControlService.CheckReadUpdateRights(userId, request.TaskItemId, PermissionLevel.ReadWrite, cancellationToken);
+            await _accessControlService.CheckRightsByTaskItem(userId, request.TaskItemId, PermissionLevel.ReadWrite, cancellationToken);
 
-            taskItem.TaskItemName = request.UpdateTaskItemDto.TaskItemName;
-            taskItem.LastModifiedAt = DateTime.Now;
-            taskItem.LastModifiedByUser = userId;
+            UpdateTaskItem(request, taskItem, userId);
 
             _taskManagerDbContext.TaskItems.Update(taskItem);
             await _taskManagerDbContext.SaveChangesAsync(cancellationToken);
@@ -57,6 +55,13 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
             return await _taskManagerDbContext.TaskItems
                 .SingleOrDefaultAsync(ti => ti.TaskItemId == request.TaskItemId, cancellationToken)
                 ?? throw new NotFoundException($"TaskItemId {request.TaskItemId} was not found.");
+        }
+
+        private static void UpdateTaskItem(UpdateTaskItemCommand request, TaskItem taskItem, string userId)
+        {
+            taskItem.TaskItemName = request.UpdateTaskItemDto.TaskItemName;
+            taskItem.LastModifiedAt = DateTime.Now;
+            taskItem.LastModifiedByUser = userId;
         }
     }
 }

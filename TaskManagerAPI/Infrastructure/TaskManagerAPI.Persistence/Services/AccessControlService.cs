@@ -14,7 +14,7 @@ namespace TaskManagerAPI.Application.Services
             _taskManagerDbContext = taskManagerDbContext;
         }
 
-        public async Task CheckReadUpdateRights(string userId, int taskItemId, PermissionLevel requiredLevel, CancellationToken cancellationToken)
+        public async Task CheckRightsByTaskItem(string userId, int taskItemId, PermissionLevel requiredLevel, CancellationToken cancellationToken)
         {
             if (await IsUserTaskListCreator(userId, taskItemId, cancellationToken))
                 return;
@@ -22,7 +22,7 @@ namespace TaskManagerAPI.Application.Services
             await CheckTaskItemPermissions(userId, taskItemId, requiredLevel, cancellationToken);
         }
 
-        public async Task CheckCreateDeleteRights(string userId, int taskListId, PermissionLevel requiredLevel, CancellationToken cancellationToken)
+        public async Task CheckRightsByTaskList(string userId, int taskListId, PermissionLevel requiredLevel, CancellationToken cancellationToken)
         {
             if (await IsUserTaskListCreatorCreate(userId, taskListId, cancellationToken))
                 return;

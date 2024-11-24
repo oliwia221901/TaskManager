@@ -46,6 +46,8 @@
     <None Remove="PermissionsManage\Commands\" />
     <None Remove="TasksManage\TaskItems\Commands\UpdateTaskItem\" />
     <None Remove="Dtos\UpdateTask\" />
+    <None Remove="TasksManage\TaskItems\Commands\DeleteTaskItem\" />
+    <None Remove="TasksManage\TaskLists\Commands\DeleteTaskList\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
@@ -88,5 +90,7 @@
     <Folder Include="PermissionsManage\Commands\" />
     <Folder Include="TasksManage\TaskItems\Commands\UpdateTaskItem\" />
     <Folder Include="Dtos\UpdateTask\" />
+    <Folder Include="TasksManage\TaskItems\Commands\DeleteTaskItem\" />
+    <Folder Include="TasksManage\TaskLists\Commands\DeleteTaskList\" />
   </ItemGroup>
 </Project>
