@@ -5,7 +5,7 @@ using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Domain.Entities.PermissionManage;
 using TaskManagerAPI.Domain.Entities.UserManage.Enums;
 
-namespace TaskManagerAPI.Application.PermissionsManage.Commands
+namespace TaskManagerAPI.Application.PermissionsManage.Commands.CreatePermission
 {
     public class CreatePermissionHandler : IRequestHandler<CreatePermissionCommand, int>
     {
@@ -22,9 +22,14 @@ namespace TaskManagerAPI.Application.PermissionsManage.Commands
         {
             var userName = _currentUserService.GetCurrentUserName();
 
-            await CheckIfPermissionExists(request, cancellationToken);
-
             var userId = await GetCurrentUserId(userName, cancellationToken);
+
+            var ownerId = await GetTaskListOwnerAsync(request, cancellationToken);
+
+            if (userId != ownerId)
+                throw new ForbiddenAccessException("Only the owner of the TaskList can grant permissions.");
+
+            await CheckIfPermissionExists(request, cancellationToken);
 
             await CheckIfFriendshipExists(userId, request, cancellationToken);
 
@@ -36,21 +41,41 @@ namespace TaskManagerAPI.Application.PermissionsManage.Commands
             return permission.PermissionId;
         }
 
+        private async Task<string> GetTaskListOwnerAsync(CreatePermissionCommand request, CancellationToken cancellationToken)
+        {
+            if (request.CreatePermissionDto.TaskItemId != null)
+            {
+                return await _taskManagerDbContext.TaskItems
+                    .Where(t => t.TaskListId == request.CreatePermissionDto.TaskItemId)
+                    .Select(t => t.TaskLists.UserId)
+                    .FirstOrDefaultAsync(cancellationToken)
+                    ?? throw new NotFoundException("TaskItem or associated TaskList not found.");
+            }
+            else
+            {
+                return await _taskManagerDbContext.TaskLists
+                    .Where(t => t.TaskListId == request.CreatePermissionDto.TaskListId)
+                    .Select(t => t.UserId)
+                    .FirstOrDefaultAsync(cancellationToken)
+                    ?? throw new NotFoundException("TaskList not found.");
+            }
+        }
+
         public async Task<bool> CheckIfPermissionExists(CreatePermissionCommand request, CancellationToken cancellationToken)
         {
             var exists = await _taskManagerDbContext.Permissions
                 .AnyAsync(p =>
-                p.UserId == request.UserId &&
-                p.TaskListId == request.CreatePermissionDto.TaskListId &&
-                p.TaskId == request.CreatePermissionDto.TaskId &&
-                p.Level == request.CreatePermissionDto.Level,
-                cancellationToken);
+                    p.UserId == request.UserId &&
+                    (p.TaskListId == request.CreatePermissionDto.TaskListId &&
+                     p.TaskItemId == request.CreatePermissionDto.TaskItemId),
+                    cancellationToken);
 
             if (exists)
-                throw new ResourceConflictException("This permission already exists.");
+                throw new ResourceConflictException("This permission already exists. You can update it.");
 
             return exists;
         }
+
 
         public async Task<string> GetCurrentUserId(string userName, CancellationToken cancellationToken)
         {
@@ -80,7 +105,7 @@ namespace TaskManagerAPI.Application.PermissionsManage.Commands
             {
                 UserId = request.UserId,
                 TaskListId = request.CreatePermissionDto.TaskListId,
-                TaskId = request.CreatePermissionDto.TaskId,
+                TaskItemId = request.CreatePermissionDto.TaskItemId,
                 Level = request.CreatePermissionDto.Level
             };
         }

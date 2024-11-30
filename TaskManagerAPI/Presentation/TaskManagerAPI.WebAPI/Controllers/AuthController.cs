@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TaskManagerAPI.Application.Dtos.LoginUser;
 using TaskManagerAPI.Application.Dtos.RegisterUser;
+using TaskManagerAPI.Application.Dtos.ResetPassword;
 using TaskManagerAPI.Application.UsersManage.LoginUser;
 using TaskManagerAPI.Application.UsersManage.RegisterUser;
+using TaskManagerAPI.Application.UsersManage.ResetPassword;
 
 namespace TaskManagerAPI.WebAPI.Controllers
 {
@@ -33,6 +35,19 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
             var token = await Mediator.Send(command);
             return Ok(new { Token = token });
+        }
+
+        [HttpPost("reset-password")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
+        {
+            var command = new ResetPasswordCommand
+            {
+                ResetPasswordDto = resetPasswordDto
+            };
+
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
     }
 }

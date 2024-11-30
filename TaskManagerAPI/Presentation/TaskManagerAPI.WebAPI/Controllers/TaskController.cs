@@ -8,6 +8,7 @@ using TaskManagerAPI.Application.TasksManage.TaskItems.Commands.UpdateTaskItem;
 using TaskManagerAPI.Application.TasksManage.TaskItems.Queries;
 using TaskManagerAPI.Application.TasksManage.TaskLists.Commands;
 using TaskManagerAPI.Application.TasksManage.TaskLists.Commands.DeleteTaskList;
+using TaskManagerAPI.Application.TasksManage.TaskLists.Commands.UpdateTaskList;
 using TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListForUser;
 
 namespace TaskManagerAPI.WebAPI.Controllers
@@ -79,6 +80,23 @@ namespace TaskManagerAPI.WebAPI.Controllers
             {
                 TaskItemId = taskItemId,
                 UpdateTaskItemDto = updateTaskItemDto
+            };
+
+            await Mediator.Send(query);
+            return NoContent();
+        }
+
+        [HttpPut("taskLists/{taskListId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult> UpdateTaskList([FromRoute] int taskListId, [FromBody] UpdateTaskListDto updateTaskListDto)
+        {
+            var query = new UpdateTaskListCommand
+            {
+                TaskListId = taskListId,
+                UpdateTaskListDto = updateTaskListDto
             };
 
             await Mediator.Send(query);

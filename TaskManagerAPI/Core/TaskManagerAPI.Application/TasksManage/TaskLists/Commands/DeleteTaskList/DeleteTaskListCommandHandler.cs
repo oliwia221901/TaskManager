@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
-using TaskManagerAPI.Application.TasksManage.TaskItems.Commands.DeleteTaskItem;
 using TaskManagerAPI.Domain.Entities.PermissionManage.Enums;
 using TaskManagerAPI.Domain.Entities.TaskManage;
 
@@ -28,7 +27,7 @@ namespace TaskManagerAPI.Application.TasksManage.TaskLists.Commands.DeleteTaskLi
 
             var userId = await GetUserId(userName, cancellationToken);
 
-            await _accessControlService.CheckRightsByTaskList(userId, request.TaskListId, PermissionLevel.FullControl, cancellationToken);
+            await _accessControlService.CheckAccess(userId, request.TaskListId, PermissionLevel.FullControl, true, cancellationToken);
 
             var taskList = await GetTaskList(request.TaskListId, cancellationToken);
 

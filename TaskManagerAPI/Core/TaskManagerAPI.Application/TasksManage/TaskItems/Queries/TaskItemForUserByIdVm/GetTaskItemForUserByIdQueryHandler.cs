@@ -30,7 +30,7 @@ namespace TaskManagerAPI.Application.TaskItems.Queries
 
             var userId = await GetUserId(userName, cancellationToken);
 
-            await _accessControlService.CheckRightsByTaskItem(userId, request.TaskItemId, PermissionLevel.ReadOnly, cancellationToken);
+            await _accessControlService.CheckAccess(userId, request.TaskItemId, PermissionLevel.ReadOnly, false, cancellationToken);
 
             var taskListCreatorId = await GetTaskListCreatorId(request, cancellationToken);
 

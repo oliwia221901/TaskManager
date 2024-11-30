@@ -7,7 +7,7 @@ namespace TaskManagerAPI.Domain.Entities.PermissionManage
         public int PermissionId { get; set; }
         public string UserId { get; set; }
         public int TaskListId { get; set; }
-        public int? TaskId { get; set; }
+        public int? TaskItemId { get; set; }
         public PermissionLevel Level { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagerAPI.Application.Dtos.CreatePermission;
-using TaskManagerAPI.Application.PermissionsManage.Commands;
+using TaskManagerAPI.Application.Dtos.UpdatePermission;
+using TaskManagerAPI.Application.PermissionsManage.Commands.CreatePermission;
+using TaskManagerAPI.Application.PermissionsManage.Commands.UpdatePermission;
 
 namespace TaskManagerAPI.WebAPI.Controllers
 {
@@ -20,8 +22,22 @@ namespace TaskManagerAPI.WebAPI.Controllers
                 CreatePermissionDto = createPermissionDto
             };
 
-            var permissionId = await Mediator.Send(command);
-            return Created(string.Empty, permissionId);
+            var result = await Mediator.Send(command);
+            return Created(string.Empty, result);
+        }
+
+        [HttpPut("{permissionId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdatePermission([FromRoute] int permissionId, [FromBody] UpdatePermissionDto updatePermissionDto)
+        {
+            var command = new UpdatePermissionCommand
+            {
+                PermissionId = permissionId,
+                UpdatePermissionDto = updatePermissionDto
+            };
+
+            await Mediator.Send(command);
+            return NoContent();
         }
     }
 }

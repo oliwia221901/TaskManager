@@ -2,6 +2,7 @@
 {
     public enum PermissionLevel
 	{
+		None,
 		ReadOnly,
 		ReadWrite,
 		FullControl

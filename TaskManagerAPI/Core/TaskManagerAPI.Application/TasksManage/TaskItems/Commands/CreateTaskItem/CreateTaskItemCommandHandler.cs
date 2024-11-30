@@ -29,7 +29,7 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
 
             await CheckTaskListExists(request.TaskListId, cancellationToken);
 
-            await _accessControlService.CheckRightsByTaskList(userId, request.TaskListId, PermissionLevel.FullControl, cancellationToken);
+            await _accessControlService.CheckAccess(userId, request.TaskListId, PermissionLevel.FullControl, true, cancellationToken);
 
             var taskItem = CreateTaskItem(request.TaskListId, request.CreateTaskItemDto, userId);
 

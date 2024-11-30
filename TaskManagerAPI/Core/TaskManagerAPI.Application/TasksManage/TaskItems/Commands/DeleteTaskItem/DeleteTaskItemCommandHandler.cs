@@ -26,7 +26,7 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands.DeleteTaskIt
 
             var userId = await GetUserId(userName, cancellationToken);
 
-			await _accessControlService.CheckRightsByTaskItem(userId, request.TaskItemId, PermissionLevel.FullControl, cancellationToken);
+			await _accessControlService.CheckAccess(userId, request.TaskItemId, PermissionLevel.FullControl, false, cancellationToken);
 
 			var taskItem = await GetTaskItem(request.TaskItemId, cancellationToken);
 

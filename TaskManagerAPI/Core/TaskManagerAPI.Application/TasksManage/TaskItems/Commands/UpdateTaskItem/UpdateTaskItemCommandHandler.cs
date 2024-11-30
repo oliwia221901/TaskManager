@@ -29,9 +29,9 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
             var userName = _currentUserService.GetCurrentUserName();
             var userId = await GetUserId(userName, cancellationToken);
 
-            var taskItem = await GetTaskItem(request, cancellationToken);
+            await _accessControlService.CheckAccess(userId, request.TaskItemId, PermissionLevel.ReadWrite, false, cancellationToken);
 
-            await _accessControlService.CheckRightsByTaskItem(userId, request.TaskItemId, PermissionLevel.ReadWrite, cancellationToken);
+            var taskItem = await GetTaskItem(request, cancellationToken);
 
             UpdateTaskItem(request, taskItem, userId);
 

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using TaskManagerAPI.Application.Dtos.CreatePermission;
 
-namespace TaskManagerAPI.Application.PermissionsManage.Commands
+namespace TaskManagerAPI.Application.PermissionsManage.Commands.CreatePermission
 {
     public class CreatePermissionCommand : IRequest<int>
 	{
