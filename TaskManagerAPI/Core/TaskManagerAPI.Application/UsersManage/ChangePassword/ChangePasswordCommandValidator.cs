@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using TaskManagerAPI.Application.Dtos.ResetPassword;
+using TaskManagerAPI.Application.Dtos.ChangePassword;
 
 namespace TaskManagerAPI.Application.UsersManage.ResetPassword
 {
-    public class ResetPasswordValidator : AbstractValidator<ResetPasswordDto>
+    public class ChangePasswordValidator : AbstractValidator<ChangePasswordDto>
     {
-        public ResetPasswordValidator()
+        public ChangePasswordValidator()
         {
             RuleFor(x => x.OldPassword).NotEmpty().WithMessage("Old password is required.");
             RuleFor(x => x.NewPassword)
@@ -14,4 +14,3 @@ namespace TaskManagerAPI.Application.UsersManage.ResetPassword
         }
     }
 }
-

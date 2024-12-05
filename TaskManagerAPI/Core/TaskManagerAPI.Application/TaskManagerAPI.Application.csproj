@@ -50,10 +50,11 @@
     <None Remove="TasksManage\TaskLists\Commands\DeleteTaskList\" />
     <None Remove="TasksManage\TaskLists\Commands\UpdateTaskList\" />
     <None Remove="Dtos\ResetPassword\" />
-    <None Remove="UsersManage\ResetPassword\" />
     <None Remove="PermissionsManage\Commands\CreatePermission\" />
     <None Remove="PermissionsManage\Commands\UpdatePermission\" />
     <None Remove="Dtos\UpdatePermission\" />
+    <None Remove="Dtos\Email\" />
+    <None Remove="UsersManage\ChangePassword\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
@@ -100,9 +101,10 @@
     <Folder Include="TasksManage\TaskLists\Commands\DeleteTaskList\" />
     <Folder Include="TasksManage\TaskLists\Commands\UpdateTaskList\" />
     <Folder Include="Dtos\ResetPassword\" />
-    <Folder Include="UsersManage\ResetPassword\" />
     <Folder Include="PermissionsManage\Commands\CreatePermission\" />
     <Folder Include="PermissionsManage\Commands\UpdatePermission\" />
     <Folder Include="Dtos\UpdatePermission\" />
+    <Folder Include="Dtos\Email\" />
+    <Folder Include="UsersManage\ChangePassword\" />
   </ItemGroup>
 </Project>

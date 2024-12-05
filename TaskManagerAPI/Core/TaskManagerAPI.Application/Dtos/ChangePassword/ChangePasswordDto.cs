@@ -1,6 +1,6 @@
-﻿namespace TaskManagerAPI.Application.Dtos.ResetPassword
+﻿namespace TaskManagerAPI.Application.Dtos.ChangePassword
 {
-    public class ResetPasswordDto
+    public class ChangePasswordDto
     {
         public string OldPassword { get; set; }
         public string NewPassword { get; set; }

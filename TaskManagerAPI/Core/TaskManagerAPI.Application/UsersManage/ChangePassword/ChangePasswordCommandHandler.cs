@@ -1,30 +1,36 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using TaskManagerAPI.Application.Common.Interfaces;
+using TaskManagerAPI.Application.Dtos.Email;
+using TaskManagerAPI.Application.UsersManage.ResetPassword;
 using TaskManagerAPI.Domain.Entities.UserManage;
 
-namespace TaskManagerAPI.Application.UsersManage.ResetPassword
+namespace TaskManagerAPI.Application.UsersManage.ChangePassword
 {
-    public class ResetPasswordHandler : IRequestHandler<ResetPasswordCommand, Unit>
+    public class ResetPasswordHandler : IRequestHandler<ChangePasswordCommand, Unit>
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly ICurrentUserService _currentUserService;
+        private readonly IEmailService _emailService;
 
-        public ResetPasswordHandler(UserManager<AppUser> userManager, ICurrentUserService currentUserService)
+        public ResetPasswordHandler(UserManager<AppUser> userManager, ICurrentUserService currentUserService, IEmailService emailService)
         {
             _userManager = userManager;
             _currentUserService = currentUserService;
+            _emailService = emailService;
         }
 
-        public async Task<Unit> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
             var userName = _currentUserService.GetCurrentUserName();
             var user = await GetUserInfo(userName);
 
-            await ValidateOldPassword(user, request.ResetPasswordDto.OldPassword);
-            ValidateNewPassword(request.ResetPasswordDto.OldPassword, request.ResetPasswordDto.NewPassword);
+            await ValidateOldPassword(user, request.ChangePasswordDto.OldPassword);
+            ValidateNewPassword(request.ChangePasswordDto.OldPassword, request.ChangePasswordDto.NewPassword);
 
-            await ChangePasswordAsync(user, request.ResetPasswordDto.OldPassword, request.ResetPasswordDto.NewPassword);
+            await ChangePasswordAsync(user, request.ChangePasswordDto.OldPassword, request.ChangePasswordDto.NewPassword);
+
+            await SendPasswordChangedEmail(user.Email);
 
             return Unit.Value;
         }
@@ -62,6 +68,18 @@ namespace TaskManagerAPI.Application.UsersManage.ResetPassword
                 var errors = string.Join(", ", result.Errors.Select(e => e.Description));
                 throw new InvalidOperationException($"Failed to reset password. Errors: {errors}");
             }
+        }
+
+        private async Task SendPasswordChangedEmail(string email)
+        {
+            var emailDto = new EmailDto
+            {
+                To = email,
+                Subject = "Password Reset Confirmation",
+                Body = "Your password has been successfully reset. If you did not request this change, please contact support immediately."
+            };
+
+            await Task.Run(() => _emailService.SendEmail(emailDto));
         }
     }
 }

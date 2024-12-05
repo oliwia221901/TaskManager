@@ -51,6 +51,7 @@ builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<ITaskManagerDbContext, TaskManagerDbContext>();
 builder.Services.AddScoped<ITaskAuthorizationService, TaskAuthorizationService>();
 builder.Services.AddScoped<IAccessControlService, AccessControlService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddControllers();
 
@@ -58,9 +59,12 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOrigin", builder =>
     {
-        builder.WithOrigins("http://85.90.246.215:3000")
-               .AllowAnyHeader()
-               .AllowAnyMethod();
+        builder.WithOrigins(
+            "http://85.90.246.215:3000",
+            "http://85.90.246.215:3001"
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod();
     });
 });
 
