@@ -24,19 +24,29 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships
             var userName = _currentUserService.GetCurrentUserName();
 
             var requesterId = await GetRequesterId(userName, cancellationToken);
-
             var friendId = await GetFriendId(request, cancellationToken);
+
+            var existingFriendship = await GetExistingFriendship(requesterId, friendId, cancellationToken);
 
             ValidateSendRequest(userName, request);
 
-            var friendship = new Friendship
+            if (existingFriendship != null)
             {
-                RequesterId = requesterId,
-                FriendId = friendId,
-                Status = FriendshipStatus.Pending
-            };
+                existingFriendship.Status = FriendshipStatus.Pending;
+                _taskManagerDbContext.Friendships.Update(existingFriendship);
+            }
+            else
+            {
+                var friendship = new Friendship
+                {
+                    RequesterId = requesterId,
+                    FriendId = friendId,
+                    Status = FriendshipStatus.Pending
+                };
 
-            _taskManagerDbContext.Friendships.Add(friendship);
+                _taskManagerDbContext.Friendships.Add(friendship);
+            }
+
             await _taskManagerDbContext.SaveChangesAsync(cancellationToken);
 
             return new SendFriendshipVm
@@ -55,7 +65,7 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships
                 ?? throw new NotFoundException("Requester was not found.");
         }
 
-        public async Task<string> GetFriendId(SendFriendRequestCommand request,CancellationToken cancellationToken)
+        public async Task<string> GetFriendId(SendFriendRequestCommand request, CancellationToken cancellationToken)
         {
             return await _taskManagerDbContext.AppUsers
                 .Where(x => x.UserName == request.SendFriendRequestDto.FriendName)
@@ -64,11 +74,17 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships
                 ?? throw new NotFoundException("Friend was not found.");
         }
 
+        public async Task<Friendship?> GetExistingFriendship(string requesterId, string friendId, CancellationToken cancellationToken)
+        {
+            return await _taskManagerDbContext.Friendships
+                .FirstOrDefaultAsync(x => (x.RequesterId == requesterId || x.RequesterId == friendId)
+                                       && (x.FriendId == friendId || x.FriendId == requesterId), cancellationToken);
+        }
 
         public static void ValidateSendRequest(string userName, SendFriendRequestCommand request)
         {
             if (userName == request.SendFriendRequestDto.FriendName)
-                throw new BadRequestException("You cannot send friend request to yourself.");
+                throw new BadRequestException("You cannot send a friend request to yourself.");
         }
     }
 }

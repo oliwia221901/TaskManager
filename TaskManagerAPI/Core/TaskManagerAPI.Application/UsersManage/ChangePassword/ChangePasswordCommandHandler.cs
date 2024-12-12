@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Application.Dtos.Email;
 using TaskManagerAPI.Application.UsersManage.ResetPassword;
@@ -38,7 +39,7 @@ namespace TaskManagerAPI.Application.UsersManage.ChangePassword
         private async Task<AppUser> GetUserInfo(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName)
-                ?? throw new KeyNotFoundException("User was not found.");
+                ?? throw new NotFoundException("User was not found.");
 
             return user;
         }
@@ -72,15 +73,21 @@ namespace TaskManagerAPI.Application.UsersManage.ChangePassword
 
         private async Task SendPasswordChangedEmail(string email)
         {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new InvalidOperationException("Email cannot be null or empty.");
+            }
+
             var emailDto = new EmailDto
             {
                 To = email,
-                Subject = "Password Reset Confirmation",
-                Body = "Your password has been successfully reset. If you did not request this change, please contact support immediately."
+                Subject = "Change Password Confirmation",
+                Body = "Your password has been successfully changed. If you did not request this change, please contact support immediately."
             };
 
             await Task.Run(() => _emailService.SendEmail(emailDto));
         }
+
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TaskManagerAPI.Application.Dtos.ChangePassword;
-using TaskManagerAPI.Application.Dtos.LoginUser;
-using TaskManagerAPI.Application.Dtos.RegisterUser;
+using TaskManagerAPI.Application.Dtos.UsersManage.ChangePassword;
+using TaskManagerAPI.Application.Dtos.UsersManage.LoginUser;
+using TaskManagerAPI.Application.Dtos.UsersManage.RegisterUser;
 using TaskManagerAPI.Application.UsersManage.LoginUser;
 using TaskManagerAPI.Application.UsersManage.RegisterUser;
 using TaskManagerAPI.Application.UsersManage.ResetPassword;

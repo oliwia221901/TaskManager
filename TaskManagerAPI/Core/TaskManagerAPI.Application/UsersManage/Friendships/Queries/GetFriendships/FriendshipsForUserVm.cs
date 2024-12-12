@@ -1,9 +1,9 @@
-﻿using TaskManagerAPI.Application.Dtos.GetFriendshipsForUser;
+﻿using TaskManagerAPI.Application.Dtos.UsersManage.GetFriendships;
 
 namespace TaskManagerAPI.Application.UsersManage.Friendships.Queries.GetFriendships
 {
-    public class FriendshipsForUserVm
+    public class FriendshipsVm
 	{
-		public IEnumerable<GetFriendshipsForUserDto> Friendships { get; set; }
+		public IEnumerable<GetFriendshipsDto> Friendships { get; set; }
 	}
 }

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TaskManagerAPI.Application.Dtos.UpdateTask;
+using TaskManagerAPI.Application.Dtos.TasksManage.UpdateTask;
 
 namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands.UpdateTaskItem
 {
@@ -9,4 +9,3 @@ namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands.UpdateTaskIt
         public UpdateTaskItemDto UpdateTaskItemDto { get; set; }
     }
 }
-

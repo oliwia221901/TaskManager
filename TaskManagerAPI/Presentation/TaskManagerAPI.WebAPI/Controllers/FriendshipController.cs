@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TaskManagerAPI.Application.Dtos.CreateFriendship;
-using TaskManagerAPI.Application.Dtos.CreateFriendships;
+using TaskManagerAPI.Application.Dtos.UsersManage.CreateFriendship;
+using TaskManagerAPI.Application.Dtos.UsersManage.CreateFriendships;
 using TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFriendRequest;
 using TaskManagerAPI.Application.UsersManage.Friendships.Commands.DeclineFriendRequest;
 using TaskManagerAPI.Application.UsersManage.Friendships.Commands.SendFriendRequest;
@@ -56,9 +56,9 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
         [HttpGet("status/{status}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<FriendshipsForUserVm>> GetFriendshipsForUser([FromRoute] int status)
+        public async Task<ActionResult<FriendshipsVm>> GetFriendshipsForUser([FromRoute] int status)
         {
-            var query = new GetFriendshipsForUserQuery
+            var query = new GetFriendshipsQuery
             {
                 Status = (FriendshipStatus)status
             };

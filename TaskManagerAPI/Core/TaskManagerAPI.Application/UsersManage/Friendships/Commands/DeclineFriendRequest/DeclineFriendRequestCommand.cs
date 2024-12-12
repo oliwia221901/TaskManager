@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TaskManagerAPI.Application.Dtos.CreateFriendship;
+using TaskManagerAPI.Application.Dtos.UsersManage.CreateFriendship;
 
 namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.DeclineFriendRequest
 {

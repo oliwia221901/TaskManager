@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TaskManagerAPI.Application.Dtos.ChangePassword;
+using TaskManagerAPI.Application.Dtos.UsersManage.ChangePassword;
 
 namespace TaskManagerAPI.Application.UsersManage.ResetPassword
 {

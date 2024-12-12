@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using TaskManagerAPI.Application.Common.Exceptions;
-using TaskManagerAPI.Application.Dtos.RegisterUser;
+using TaskManagerAPI.Application.Dtos.UsersManage.RegisterUser;
 using TaskManagerAPI.Domain.Entities.UserManage;
 
 namespace TaskManagerAPI.Application.UsersManage.RegisterUser

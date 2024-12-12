@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TaskManagerAPI.Application.Dtos.UpdateTask;
+using TaskManagerAPI.Application.Dtos.TasksManage.UpdateTask;
 
 namespace TaskManagerAPI.Application.TasksManage.TaskLists.Commands.UpdateTaskList
 {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
-using TaskManagerAPI.Application.Dtos.CreateTask;
+using TaskManagerAPI.Application.Dtos.TasksManage.CreateTask;
 using TaskManagerAPI.Domain.Entities.PermissionManage.Enums;
 using TaskManagerAPI.Domain.Entities.TaskManage;
 

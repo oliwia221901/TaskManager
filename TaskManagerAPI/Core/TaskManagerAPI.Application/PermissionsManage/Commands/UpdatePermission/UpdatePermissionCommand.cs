@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TaskManagerAPI.Application.Dtos.UpdatePermission;
+using TaskManagerAPI.Application.Dtos.PermissionsManage.UpdatePermission;
 
 namespace TaskManagerAPI.Application.PermissionsManage.Commands.UpdatePermission
 {

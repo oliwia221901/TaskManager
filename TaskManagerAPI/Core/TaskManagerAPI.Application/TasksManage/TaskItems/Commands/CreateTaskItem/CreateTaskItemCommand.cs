@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TaskManagerAPI.Application.Dtos.CreateTask;
+using TaskManagerAPI.Application.Dtos.TasksManage.CreateTask;
 
 namespace TaskManagerAPI.Application.TasksManage.TaskItems.Commands
 {

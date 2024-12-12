@@ -2,33 +2,33 @@
 using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
-using TaskManagerAPI.Application.Dtos.GetFriendshipsForUser;
+using TaskManagerAPI.Application.Dtos.UsersManage.GetFriendships;
 using TaskManagerAPI.Domain.Entities.UserManage;
 using TaskManagerAPI.Domain.Entities.UserManage.Enums;
 
 namespace TaskManagerAPI.Application.UsersManage.Friendships.Queries.GetFriendships
 {
-    public class GetFriendshipsForUserQueryHandler : IRequestHandler<GetFriendshipsForUserQuery, FriendshipsForUserVm>
+    public class GetFriendshipsQueryHandler : IRequestHandler<GetFriendshipsQuery, FriendshipsVm>
 	{
 		private readonly ITaskManagerDbContext _taskManagerDbContext;
 		private readonly ICurrentUserService _currentUserService;
 
-		public GetFriendshipsForUserQueryHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService)
+		public GetFriendshipsQueryHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService)
 		{
 			_taskManagerDbContext = taskManagerDbContext;
 			_currentUserService = currentUserService;
 		}
 
-        public async Task<FriendshipsForUserVm> Handle(GetFriendshipsForUserQuery request, CancellationToken cancellationToken)
+        public async Task<FriendshipsVm> Handle(GetFriendshipsQuery request, CancellationToken cancellationToken)
         {
             var userName = _currentUserService.GetCurrentUserName();
 
             var currentUserId = await GetRequesterId(userName, cancellationToken);
-            var friendships = await GetFriendshipsForUser(currentUserId, request.Status, cancellationToken);
+            var friendships = await GetFriendships(currentUserId, request.Status, cancellationToken);
 
             var friendshipsDto = await MapFriendshipsForUserToDto(friendships, currentUserId, cancellationToken);
 
-            return new FriendshipsForUserVm
+            return new FriendshipsVm
             {
                 Friendships = friendshipsDto
             };
@@ -43,7 +43,7 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Queries.GetFriendsh
 				?? throw new NotFoundException("Requester was not found.");
 		}
 
-        public async Task<IEnumerable<Friendship>> GetFriendshipsForUser(string userId, FriendshipStatus status, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Friendship>> GetFriendships(string userId, FriendshipStatus status, CancellationToken cancellationToken)
         {
             var friendshipsExist = await _taskManagerDbContext.Friendships
                 .AnyAsync(x => x.RequesterId == userId || x.FriendId == userId, cancellationToken);
@@ -58,7 +58,7 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Queries.GetFriendsh
             return friendships;
         }
 
-        public async Task<IEnumerable<GetFriendshipsForUserDto>> MapFriendshipsForUserToDto(IEnumerable<Friendship> friendships, string userId, CancellationToken cancellationToken)
+        public async Task<IEnumerable<GetFriendshipsDto>> MapFriendshipsForUserToDto(IEnumerable<Friendship> friendships, string userId, CancellationToken cancellationToken)
         {
             var userIds = friendships.SelectMany(f => new[] { f.RequesterId, f.FriendId }).Distinct();
 
@@ -74,7 +74,7 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Queries.GetFriendsh
                 var friendName = users.GetValueOrDefault(f.FriendId)
                     ?? throw new NotFoundException("Friend not found.");
 
-                return new GetFriendshipsForUserDto
+                return new GetFriendshipsDto
                 {
                     FriendshipId = f.FriendshipId,
                     RequesterName = requesterName,

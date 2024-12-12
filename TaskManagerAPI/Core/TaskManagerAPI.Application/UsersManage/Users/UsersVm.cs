@@ -1,4 +1,4 @@
-﻿using TaskManagerAPI.Application.Dtos.GetUsers;
+﻿using TaskManagerAPI.Application.Dtos.UsersManage.GetUsers;
 
 namespace TaskManagerAPI.Application.UsersManage.Users
 {

@@ -22,11 +22,11 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFrie
         {
             var userName = _currentUserService.GetCurrentUserName();
 
-            var requesterId = await GetRequesterId(userName, cancellationToken);
+            var userId = await GetRequesterId(userName, cancellationToken);
 
             var friendship = await GetFriendship(request.AcceptFriendRequestDto.FriendshipId, cancellationToken);
 
-            ValidateAcceptRequest(friendship, requesterId);
+            ValidateAcceptRequest(friendship, userId);
 
             friendship.Status = FriendshipStatus.Accepted;
             await _taskManagerDbContext.SaveChangesAsync(cancellationToken);
@@ -55,10 +55,13 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.AcceptFrie
                 ?? throw new NotFoundException("Friendship was not found.");
         }
 
-        public static void ValidateAcceptRequest(Friendship friendship, string requesterId)
+        public static void ValidateAcceptRequest(Friendship friendship, string userId)
         {
-            if (friendship.RequesterId == requesterId)
+            if (friendship.RequesterId == userId)
                 throw new BadRequestException("You cannot accept friend invitation from yourself.");
+
+            if (friendship.FriendId != userId)
+                throw new BadRequestException("You cannot accept friend invitation.");
 
             if (friendship.Status != FriendshipStatus.Pending)
                 throw new BadRequestException("Friendship status is not pending.");

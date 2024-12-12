@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TaskManagerAPI.Application.Dtos.RegisterUser;
+using TaskManagerAPI.Application.Dtos.UsersManage.RegisterUser;
 
 namespace TaskManagerAPI.Application.UsersManage.RegisterUser
 {

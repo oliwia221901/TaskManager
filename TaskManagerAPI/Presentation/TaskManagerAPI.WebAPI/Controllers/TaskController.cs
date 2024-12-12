@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TaskManagerAPI.Application.Dtos.CreateTask;
-using TaskManagerAPI.Application.Dtos.UpdateTask;
+using TaskManagerAPI.Application.Dtos.TasksManage.CreateTask;
+using TaskManagerAPI.Application.Dtos.TasksManage.UpdateTask;
 using TaskManagerAPI.Application.TasksManage.TaskItems.Commands;
 using TaskManagerAPI.Application.TasksManage.TaskItems.Commands.DeleteTaskItem;
 using TaskManagerAPI.Application.TasksManage.TaskItems.Commands.UpdateTaskItem;
@@ -9,7 +9,7 @@ using TaskManagerAPI.Application.TasksManage.TaskItems.Queries;
 using TaskManagerAPI.Application.TasksManage.TaskLists.Commands;
 using TaskManagerAPI.Application.TasksManage.TaskLists.Commands.DeleteTaskList;
 using TaskManagerAPI.Application.TasksManage.TaskLists.Commands.UpdateTaskList;
-using TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListForUser;
+using TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskList;
 
 namespace TaskManagerAPI.WebAPI.Controllers
 {
@@ -49,18 +49,18 @@ namespace TaskManagerAPI.WebAPI.Controllers
         [HttpGet("taskLists")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TaskListForUserVm>> GetTaskListForUser()
+        public async Task<ActionResult<TaskListVm>> GetTaskListForUser()
         {
-            var query = new GetTaskListForUserQuery();
+            var query = new GetTaskListQuery();
             var result = await Mediator.Send(query);
             return Ok(result);
         }
 
         [HttpGet("taskItems/{taskItemId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<TaskItemForUserByIdVm>> GetTaskItems([FromRoute] int taskItemId)
+        public async Task<ActionResult<TaskItemByIdVm>> GetTaskItems([FromRoute] int taskItemId)
         {
-            var query = new GetTaskItemForUserByIdQuery
+            var query = new GetTaskItemByIdQuery
             {
                 TaskItemId = taskItemId
             };

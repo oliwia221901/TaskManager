@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TaskManagerAPI.Application.Dtos.CreatePermission;
-using TaskManagerAPI.Application.Dtos.UpdatePermission;
+using TaskManagerAPI.Application.Dtos.PermissionsManage.CreatePermission;
+using TaskManagerAPI.Application.Dtos.PermissionsManage.UpdatePermission;
 using TaskManagerAPI.Application.PermissionsManage.Commands.CreatePermission;
 using TaskManagerAPI.Application.PermissionsManage.Commands.UpdatePermission;
 

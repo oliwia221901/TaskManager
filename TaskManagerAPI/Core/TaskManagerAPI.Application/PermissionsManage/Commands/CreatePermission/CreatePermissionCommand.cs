@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TaskManagerAPI.Application.Dtos.CreatePermission;
+using TaskManagerAPI.Application.Dtos.PermissionsManage.CreatePermission;
 
 namespace TaskManagerAPI.Application.PermissionsManage.Commands.CreatePermission
 {

@@ -22,10 +22,10 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.DeclineFri
 		{
 			var userName = _currentUserService.GetCurrentUserName();
 
-			var requesterId = await GetRequesterId(userName, cancellationToken);
+			var userId = await GetRequesterId(userName, cancellationToken);
 			var friendship = await GetFriendship(request.DeclineFriendRequestDto.FriendshipId, cancellationToken);
 
-			ValidateDeclineRequest(friendship, requesterId);
+			ValidateDeclineRequest(friendship, userId);
 
             friendship.Status = FriendshipStatus.Declined;
             await _taskManagerDbContext.SaveChangesAsync(cancellationToken);
@@ -55,10 +55,13 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.DeclineFri
 		}
 
 
-		public static void ValidateDeclineRequest(Friendship friendship, string requesterId)
+		public static void ValidateDeclineRequest(Friendship friendship, string userId)
 		{
-            if (friendship.RequesterId == requesterId)
+            if (friendship.RequesterId == userId)
                 throw new BadRequestException("You cannot decline friend invitation from yourself.");
+
+            if (friendship.FriendId != userId)
+                throw new BadRequestException("You cannot decline friend invitation.");
 
             if (friendship.Status != FriendshipStatus.Pending)
                 throw new BadRequestException("Friendship status is not pending.");
