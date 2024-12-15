@@ -61,7 +61,7 @@
     <None Remove="Dtos\UsersManage\GetFriendships\" />
     <None Remove="Dtos\TasksManage\GetTaskItemById\" />
     <None Remove="UsersManage\Friendships\Commands\DeleteFriend\" />
-    <None Remove="UsersManage\Friendships\Commands\DeleteFriend\DeleteFriendCommandHandler\" />
+    <None Remove="Dtos\UsersManage\DeleteFriend\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
@@ -119,6 +119,6 @@
     <Folder Include="Dtos\UsersManage\GetFriendships\" />
     <Folder Include="Dtos\TasksManage\GetTaskItemById\" />
     <Folder Include="UsersManage\Friendships\Commands\DeleteFriend\" />
-    <Folder Include="UsersManage\Friendships\Commands\DeleteFriend\DeleteFriendCommandHandler\" />
+    <Folder Include="Dtos\UsersManage\DeleteFriend\" />
   </ItemGroup>
 </Project>

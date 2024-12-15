@@ -1,11 +1,11 @@
-﻿using System;
+﻿using MediatR;
+using TaskManagerAPI.Application.Dtos.UsersManage.DeleteFriend;
+
 namespace TaskManagerAPI.Application.UsersManage.Friendships.Commands.DeleteFriend
 {
-	public class DeleteFriendCommand
+	public class DeleteFriendCommand : IRequest<Unit>
 	{
-		public DeleteFriendCommand()
-		{
-		}
+		public int FriendshipId { get; set; }
+		public DeleteFriendDto DeleteFriendDto { get; set; }
 	}
 }
-

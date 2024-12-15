@@ -12,9 +12,9 @@ namespace TaskManagerAPI.Domain.Entities.UserManage
         public string FriendId { get; set; }
 		public AppUser Friend { get; set; }
 
-		public FriendshipStatus Status { get; set; } = FriendshipStatus.Pending;
+		public FriendshipStatus Status { get; set; }
 
-		public DateTime CreatedAt { get; set; } = DateTime.UtcNow.ToLocalTime();
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
 
 	}
 }

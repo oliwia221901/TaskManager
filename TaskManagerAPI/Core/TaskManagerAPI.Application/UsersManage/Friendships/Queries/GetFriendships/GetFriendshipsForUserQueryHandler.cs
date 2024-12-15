@@ -26,7 +26,7 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Queries.GetFriendsh
             var currentUserId = await GetRequesterId(userName, cancellationToken);
             var friendships = await GetFriendships(currentUserId, request.Status, cancellationToken);
 
-            var friendshipsDto = await MapFriendshipsForUserToDto(friendships, currentUserId, cancellationToken);
+            var friendshipsDto = await MapFriendshipsToDto(friendships, cancellationToken);
 
             return new FriendshipsVm
             {
@@ -58,7 +58,7 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships.Queries.GetFriendsh
             return friendships;
         }
 
-        public async Task<IEnumerable<GetFriendshipsDto>> MapFriendshipsForUserToDto(IEnumerable<Friendship> friendships, string userId, CancellationToken cancellationToken)
+        public async Task<IEnumerable<GetFriendshipsDto>> MapFriendshipsToDto(IEnumerable<Friendship> friendships, CancellationToken cancellationToken)
         {
             var userIds = friendships.SelectMany(f => new[] { f.RequesterId, f.FriendId }).Distinct();
 
