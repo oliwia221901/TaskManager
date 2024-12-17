@@ -9,7 +9,5 @@ namespace TaskManagerAPI.Application.Dtos.PermissionsManage.GetPermissions
         public int TaskListId { get; set; }
         public int? TaskItemId { get; set; }
         public PermissionLevel Level { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public string CreatedBy { get; set; }
     }
 }

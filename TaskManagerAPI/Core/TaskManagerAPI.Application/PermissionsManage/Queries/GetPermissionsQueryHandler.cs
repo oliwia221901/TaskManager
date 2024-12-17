@@ -60,9 +60,7 @@ namespace TaskManagerAPI.Application.PermissionsManage.Queries
 					UserId = p.UserId,
 					TaskListId = p.TaskListId,
 					TaskItemId = p.TaskItemId,
-					Level = p.Level,
-					CreatedAt = p.CreatedAt,
-					CreatedBy = p.CreatedBy
+					Level = p.Level
 				}).ToList();
 		}
 	}
