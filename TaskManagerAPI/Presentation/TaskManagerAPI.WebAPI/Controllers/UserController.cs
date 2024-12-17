@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TaskManagerAPI.Application.UsersManage.AllUsers;
 using TaskManagerAPI.Application.UsersManage.Users;
 
 namespace TaskManagerAPI.WebAPI.Controllers
@@ -14,6 +15,15 @@ namespace TaskManagerAPI.WebAPI.Controllers
         public async Task<ActionResult<UsersVm>> GetUsers()
         {
             var query = new GetUsersQuery();
+            var result = await Mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("all")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<AllUsersVm>> GetAllUsers()
+        {
+            var query = new GetAllUsersQuery();
             var result = await Mediator.Send(query);
             return Ok(result);
         }

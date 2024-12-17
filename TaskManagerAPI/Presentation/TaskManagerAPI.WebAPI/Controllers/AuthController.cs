@@ -13,7 +13,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
     {
         [HttpPost("register")]
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
-        public async Task<IActionResult> Register([FromBody] RegisterUserDto registerUserDto)
+        public async Task<ActionResult> Register([FromBody] RegisterUserDto registerUserDto)
         {
             var command = new RegisterUserCommand
             {
@@ -26,7 +26,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
+        public async Task<ActionResult> Login([FromBody] LoginUserDto loginUserDto)
         {
             var command = new LoginUserCommand
             {
@@ -39,7 +39,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
         [HttpPost("change-password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> ResetPassword([FromBody] ChangePasswordDto changePasswordDto)
+        public async Task<ActionResult> ResetPassword([FromBody] ChangePasswordDto changePasswordDto)
         {
             var command = new ChangePasswordCommand
             {

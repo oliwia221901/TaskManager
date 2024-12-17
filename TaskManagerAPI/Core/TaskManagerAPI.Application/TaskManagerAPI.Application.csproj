@@ -62,6 +62,10 @@
     <None Remove="Dtos\TasksManage\GetTaskItemById\" />
     <None Remove="UsersManage\Friendships\Commands\DeleteFriend\" />
     <None Remove="Dtos\UsersManage\DeleteFriend\" />
+    <None Remove="UsersManage\AllUsers\" />
+    <None Remove="Dtos\UsersManage\GetAllUsers\" />
+    <None Remove="PermissionsManage\Queries\" />
+    <None Remove="Dtos\PermissionsManage\GetPermissions\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
@@ -120,5 +124,9 @@
     <Folder Include="Dtos\TasksManage\GetTaskItemById\" />
     <Folder Include="UsersManage\Friendships\Commands\DeleteFriend\" />
     <Folder Include="Dtos\UsersManage\DeleteFriend\" />
+    <Folder Include="UsersManage\AllUsers\" />
+    <Folder Include="Dtos\UsersManage\GetAllUsers\" />
+    <Folder Include="PermissionsManage\Queries\" />
+    <Folder Include="Dtos\PermissionsManage\GetPermissions\" />
   </ItemGroup>
 </Project>

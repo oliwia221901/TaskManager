@@ -4,6 +4,7 @@ using TaskManagerAPI.Application.Dtos.PermissionsManage.CreatePermission;
 using TaskManagerAPI.Application.Dtos.PermissionsManage.UpdatePermission;
 using TaskManagerAPI.Application.PermissionsManage.Commands.CreatePermission;
 using TaskManagerAPI.Application.PermissionsManage.Commands.UpdatePermission;
+using TaskManagerAPI.Application.PermissionsManage.Queries;
 
 namespace TaskManagerAPI.WebAPI.Controllers
 {
@@ -14,7 +15,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
     {
         [HttpPost("users/{userId}")]
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreatePermission([FromRoute] string userId, [FromBody] CreatePermissionDto createPermissionDto)
+        public async Task<ActionResult> CreatePermission([FromRoute] string userId, [FromBody] CreatePermissionDto createPermissionDto)
         {
             var command = new CreatePermissionCommand
             {
@@ -28,7 +29,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
         [HttpPut("{permissionId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdatePermission([FromRoute] int permissionId, [FromBody] UpdatePermissionDto updatePermissionDto)
+        public async Task<ActionResult> UpdatePermission([FromRoute] int permissionId, [FromBody] UpdatePermissionDto updatePermissionDto)
         {
             var command = new UpdatePermissionCommand
             {
@@ -38,6 +39,15 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
             await Mediator.Send(command);
             return NoContent();
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> GetPermissions()
+        {
+            var query = new GetPermissionsQuery();
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace TaskManagerAPI.Application.PermissionsManage.Commands.CreatePermission
 
             await CheckIfFriendshipExists(userId, request, cancellationToken);
 
-            var permission = CreatePermission(request);
+            var permission = CreatePermission(request, userId);
 
             _taskManagerDbContext.Permissions.Add(permission);
             await _taskManagerDbContext.SaveChangesAsync(cancellationToken);
@@ -99,14 +99,15 @@ namespace TaskManagerAPI.Application.PermissionsManage.Commands.CreatePermission
             return exists;
         }
 
-        public static Permission CreatePermission(CreatePermissionCommand request)
+        public static Permission CreatePermission(CreatePermissionCommand request, string userId)
         {
             return new Permission
             {
                 UserId = request.UserId,
                 TaskListId = request.CreatePermissionDto.TaskListId,
                 TaskItemId = request.CreatePermissionDto.TaskItemId,
-                Level = request.CreatePermissionDto.Level
+                Level = request.CreatePermissionDto.Level,
+                CreatedBy = userId
             };
         }
 

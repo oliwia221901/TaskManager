@@ -47,9 +47,6 @@ namespace TaskManagerAPI.Application.UsersManage.Users
                 .ToListAsync(cancellationToken);
         }
 
-
-
-
         public static List<GetUsersDto> MapUsersToDto(List<AppUser> users)
 		{
 			return users
