@@ -77,7 +77,8 @@ namespace TaskManagerAPI.Application.UsersManage.Friendships
         public async Task<Friendship?> GetExistingFriendship(string requesterId, string friendId, CancellationToken cancellationToken)
         {
             return await _taskManagerDbContext.Friendships
-                .FirstOrDefaultAsync(x => x.RequesterId == requesterId && x.FriendId == friendId, cancellationToken);
+                .FirstOrDefaultAsync(x => (x.RequesterId == requesterId && x.FriendId == friendId) ||
+                (x.RequesterId == friendId && x.FriendId == requesterId), cancellationToken);
         }
 
         public static void ValidateSendRequest(string userName, SendFriendRequestCommand request)
