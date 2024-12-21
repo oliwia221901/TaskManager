@@ -1,6 +1,6 @@
 ﻿using TaskManagerAPI.Application.Dtos.PermissionsManage.GetPermissions;
 
-namespace TaskManagerAPI.Application.PermissionsManage.Queries
+namespace TaskManagerAPI.Application.PermissionsManage.Queries.GetPermissions
 {
 	public class PermissionsQueryVm
 	{

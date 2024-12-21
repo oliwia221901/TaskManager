@@ -5,7 +5,7 @@ using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Application.Dtos.PermissionsManage.GetPermissions;
 using TaskManagerAPI.Domain.Entities.PermissionManage;
 
-namespace TaskManagerAPI.Application.PermissionsManage.Queries
+namespace TaskManagerAPI.Application.PermissionsManage.Queries.GetPermissions
 {
     public class GetPermissionsQueryHandler : IRequestHandler<GetPermissionsQuery, PermissionsQueryVm>
 	{

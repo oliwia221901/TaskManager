@@ -4,7 +4,7 @@ using TaskManagerAPI.Application.Dtos.PermissionsManage.CreatePermission;
 using TaskManagerAPI.Application.Dtos.PermissionsManage.UpdatePermission;
 using TaskManagerAPI.Application.PermissionsManage.Commands.CreatePermission;
 using TaskManagerAPI.Application.PermissionsManage.Commands.UpdatePermission;
-using TaskManagerAPI.Application.PermissionsManage.Queries;
+using TaskManagerAPI.Application.PermissionsManage.Queries.GetPermissions;
 
 namespace TaskManagerAPI.WebAPI.Controllers
 {
@@ -14,7 +14,8 @@ namespace TaskManagerAPI.WebAPI.Controllers
     public class PermissionController : BaseController
     {
         [HttpPost("users/{userId}")]
-        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> CreatePermission([FromRoute] string userId, [FromBody] CreatePermissionDto createPermissionDto)
         {
             var command = new CreatePermissionCommand
@@ -24,7 +25,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
             };
 
             var result = await Mediator.Send(command);
-            return Created(string.Empty, result);
+            return Ok(result);
         }
 
         [HttpPut("{permissionId}")]

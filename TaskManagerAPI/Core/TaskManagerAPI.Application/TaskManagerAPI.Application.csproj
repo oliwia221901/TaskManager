@@ -66,6 +66,7 @@
     <None Remove="Dtos\UsersManage\GetAllUsers\" />
     <None Remove="PermissionsManage\Queries\" />
     <None Remove="Dtos\PermissionsManage\GetPermissions\" />
+    <None Remove="PermissionsManage\Queries\GetPermissions\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
@@ -128,5 +129,6 @@
     <Folder Include="Dtos\UsersManage\GetAllUsers\" />
     <Folder Include="PermissionsManage\Queries\" />
     <Folder Include="Dtos\PermissionsManage\GetPermissions\" />
+    <Folder Include="PermissionsManage\Queries\GetPermissions\" />
   </ItemGroup>
 </Project>
