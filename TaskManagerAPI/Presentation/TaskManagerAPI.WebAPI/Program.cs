@@ -1,92 +1,91 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using TaskManagerAPI.Application;
-using TaskManagerAPI.Application.Common.Interfaces;
-using TaskManagerAPI.Application.Common.Services;
-using TaskManagerAPI.Application.Services;
-using TaskManagerAPI.Domain.Entities.UserManage;
-using TaskManagerAPI.Persistence;
-using TaskManagerAPI.Persistence.Context;
-using TaskManagerAPI.Persistence.Services;
-using TaskManagerAPI.WebAPI.Middlewares;
+﻿    using System.Text;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.IdentityModel.Tokens;
+    using TaskManagerAPI.Application;
+    using TaskManagerAPI.Application.Common.Interfaces;
+    using TaskManagerAPI.Application.Common.Services;
+    using TaskManagerAPI.Application.Services;
+    using TaskManagerAPI.Domain.Entities.UserManage;
+    using TaskManagerAPI.Persistence;
+    using TaskManagerAPI.Persistence.Context;
+    using TaskManagerAPI.Persistence.Services;
+    using TaskManagerAPI.WebAPI.Middlewares;
 
-var builder = WebApplication.CreateBuilder(args);
+    var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+    // Add services to the container.
 
-builder.Services.AddDbContext<TaskManagerDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TaskManagerDbConnection")));
+    builder.Services.AddDbContext<TaskManagerDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("TaskManagerDbConnection")));
 
-builder.Services.AddApplication();
-builder.Services.AddInfrastucture();
+    builder.Services.AddApplication();
+    builder.Services.AddInfrastucture();
 
-builder.Services.AddIdentity<AppUser, IdentityRole>()
-        .AddEntityFrameworkStores<TaskManagerDbContext>()
-        .AddDefaultTokenProviders();
+    builder.Services.AddIdentity<AppUser, IdentityRole>()
+            .AddEntityFrameworkStores<TaskManagerDbContext>()
+            .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
+    builder.Services.AddAuthentication(options =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
-        ValidAudience = builder.Configuration["JwtSettings:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]))
-    };
-});
-
-builder.Services.AddScoped<JwtTokenService>();
-builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
-builder.Services.AddScoped<ITaskManagerDbContext, TaskManagerDbContext>();
-builder.Services.AddScoped<ITaskAuthorizationService, TaskAuthorizationService>();
-builder.Services.AddScoped<IAccessControlService, AccessControlService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
-
-builder.Services.AddControllers();
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowOrigin", builder =>
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
     {
-        builder.WithOrigins(
-            "http://85.90.246.215:3000",
-            "http://85.90.246.215:3001"
-        )
-        .AllowAnyHeader()
-        .AllowAnyMethod();
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+            ValidAudience = builder.Configuration["JwtSettings:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]))
+        };
     });
-});
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    builder.Services.AddScoped<JwtTokenService>();
+    builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+    builder.Services.AddScoped<ITaskManagerDbContext, TaskManagerDbContext>();
+    builder.Services.AddScoped<IAccessControlService, AccessControlService>();
+    builder.Services.AddScoped<IEmailService, EmailService>();
 
-var app = builder.Build();
+    builder.Services.AddControllers();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowOrigin", builder =>
+        {
+            builder.WithOrigins(
+                "http://85.90.246.215:3000",
+                "http://85.90.246.215:3001"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
+    });
 
-app.UseMiddleware<GlobalExceptionMiddleware>();
-app.UseHttpsRedirection();
-app.UseCors("AllowOrigin");
-app.UseAuthentication();
-app.UseAuthorization();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-app.MapControllers();
+    var app = builder.Build();
 
-app.Run();
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseMiddleware<GlobalExceptionMiddleware>();
+    app.UseHttpsRedirection();
+    app.UseCors("AllowOrigin");
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    app.Run();

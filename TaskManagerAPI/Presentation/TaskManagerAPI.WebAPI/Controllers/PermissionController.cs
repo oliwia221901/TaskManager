@@ -16,6 +16,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
         [HttpPost("users/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> CreatePermission([FromRoute] string userId, [FromBody] CreatePermissionDto createPermissionDto)
         {
             var command = new CreatePermissionCommand
@@ -30,6 +31,8 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
         [HttpPut("{permissionId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> UpdatePermission([FromRoute] int permissionId, [FromBody] UpdatePermissionDto updatePermissionDto)
         {
             var command = new UpdatePermissionCommand

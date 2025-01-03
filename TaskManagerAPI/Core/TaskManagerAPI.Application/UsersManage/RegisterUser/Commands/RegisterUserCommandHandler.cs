@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Dtos.UsersManage.RegisterUser;
+using TaskManagerAPI.Application.UsersManage.RegisterUser.Commands;
 using TaskManagerAPI.Domain.Entities.UserManage;
 
 namespace TaskManagerAPI.Application.UsersManage.RegisterUser

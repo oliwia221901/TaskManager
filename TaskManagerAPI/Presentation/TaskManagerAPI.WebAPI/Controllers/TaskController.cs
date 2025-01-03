@@ -48,8 +48,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
         [HttpGet("taskLists")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TaskListVm>> GetTaskListForUser()
+        public async Task<ActionResult<TaskListVm>> GetTaskLists()
         {
             var query = new GetTaskListQuery();
             var result = await Mediator.Send(query);
@@ -58,7 +57,9 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
         [HttpGet("taskItems/{taskItemId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<TaskItemByIdVm>> GetTaskItems([FromRoute] int taskItemId)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<TaskItemByIdVm>> GetTaskItemById([FromRoute] int taskItemId)
         {
             var query = new GetTaskItemByIdQuery
             {

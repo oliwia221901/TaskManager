@@ -62,11 +62,16 @@
     <None Remove="Dtos\TasksManage\GetTaskItemById\" />
     <None Remove="UsersManage\Friendships\Commands\DeleteFriend\" />
     <None Remove="Dtos\UsersManage\DeleteFriend\" />
-    <None Remove="UsersManage\AllUsers\" />
     <None Remove="Dtos\UsersManage\GetAllUsers\" />
     <None Remove="PermissionsManage\Queries\" />
     <None Remove="Dtos\PermissionsManage\GetPermissions\" />
     <None Remove="PermissionsManage\Queries\GetPermissions\" />
+    <None Remove="UsersManage\Users\Queries\" />
+    <None Remove="UsersManage\Users\Queries\GetUsers\" />
+    <None Remove="UsersManage\Users\Queries\GetAllUsers\" />
+    <None Remove="UsersManage\ChangePassword\Commands\" />
+    <None Remove="UsersManage\LoginUser\Commands\" />
+    <None Remove="UsersManage\RegisterUser\Commands\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
@@ -125,10 +130,15 @@
     <Folder Include="Dtos\TasksManage\GetTaskItemById\" />
     <Folder Include="UsersManage\Friendships\Commands\DeleteFriend\" />
     <Folder Include="Dtos\UsersManage\DeleteFriend\" />
-    <Folder Include="UsersManage\AllUsers\" />
     <Folder Include="Dtos\UsersManage\GetAllUsers\" />
     <Folder Include="PermissionsManage\Queries\" />
     <Folder Include="Dtos\PermissionsManage\GetPermissions\" />
     <Folder Include="PermissionsManage\Queries\GetPermissions\" />
+    <Folder Include="UsersManage\Users\Queries\" />
+    <Folder Include="UsersManage\Users\Queries\GetUsers\" />
+    <Folder Include="UsersManage\Users\Queries\GetAllUsers\" />
+    <Folder Include="UsersManage\ChangePassword\Commands\" />
+    <Folder Include="UsersManage\LoginUser\Commands\" />
+    <Folder Include="UsersManage\RegisterUser\Commands\" />
   </ItemGroup>
 </Project>

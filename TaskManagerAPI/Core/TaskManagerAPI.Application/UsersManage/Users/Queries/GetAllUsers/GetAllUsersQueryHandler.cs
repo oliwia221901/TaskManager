@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Application.Dtos.UsersManage.GetAllUsers;
-using TaskManagerAPI.Application.UsersManage.AllUsers;
+using TaskManagerAPI.Application.UsersManage.Users.Queries.GetAllUsers;
 using TaskManagerAPI.Domain.Entities.UserManage;
 
 namespace TaskManagerAPI.Application.UsersManage.Users

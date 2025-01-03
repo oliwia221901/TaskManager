@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TaskManagerAPI.Application.UsersManage.RegisterUser.Commands;
 
 namespace TaskManagerAPI.Application.UsersManage.RegisterUser
 {

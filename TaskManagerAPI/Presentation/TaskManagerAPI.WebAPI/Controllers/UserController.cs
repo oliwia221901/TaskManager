@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TaskManagerAPI.Application.UsersManage.AllUsers;
 using TaskManagerAPI.Application.UsersManage.Users;
+using TaskManagerAPI.Application.UsersManage.Users.Queries.GetAllUsers;
 
 namespace TaskManagerAPI.WebAPI.Controllers
 {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using TaskManagerAPI.Application.Dtos.UsersManage.ChangePassword;
 
-namespace TaskManagerAPI.Application.UsersManage.ResetPassword
+namespace TaskManagerAPI.Application.UsersManage.ChangePassword.Commands
 {
     public class ChangePasswordValidator : AbstractValidator<ChangePasswordDto>
     {

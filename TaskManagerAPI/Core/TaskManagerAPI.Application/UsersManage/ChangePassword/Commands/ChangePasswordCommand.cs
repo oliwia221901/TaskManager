@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using TaskManagerAPI.Application.Dtos.UsersManage.ChangePassword;
 
-namespace TaskManagerAPI.Application.UsersManage.ResetPassword
+namespace TaskManagerAPI.Application.UsersManage.ChangePassword.Commands
 {
     public class ChangePasswordCommand : IRequest<Unit>
     {

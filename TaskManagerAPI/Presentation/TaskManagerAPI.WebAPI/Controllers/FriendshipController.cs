@@ -17,7 +17,9 @@ namespace TaskManagerAPI.WebAPI.Controllers
     public class FriendshipsController : BaseController
     {
         [HttpPost("send")]
-        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> SendFriendRequest([FromBody] SendFriendRequestDto sendFriendRequestDto)
         {
             var command = new SendFriendRequestCommand
@@ -25,12 +27,14 @@ namespace TaskManagerAPI.WebAPI.Controllers
                 SendFriendRequestDto = sendFriendRequestDto
             };
 
-            var result = await Mediator.Send(command);
-            return Created(string.Empty, result);
+            await Mediator.Send(command);
+            return Ok();
         }
 
         [HttpPost("accept")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> AcceptFriendRequest([FromBody] AcceptFriendRequestDto acceptFriendRequestDto)
         {
             var command = new AcceptFriendRequestCommand
@@ -44,6 +48,8 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
         [HttpPost("decline")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeclineFriendRequest([FromBody] DeclineFriendRequestDto declineFriendRequestDto)
         {
             var command = new DeclineFriendRequestCommand
@@ -57,6 +63,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
         [HttpGet("status/{status}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<FriendshipsVm>> GetFriendships([FromRoute] int status)
         {
@@ -71,6 +78,7 @@ namespace TaskManagerAPI.WebAPI.Controllers
 
         [HttpDelete("delete/{friendshipId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteFriend([FromRoute] int friendshipId)
         {

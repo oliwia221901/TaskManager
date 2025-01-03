@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using TaskManagerAPI.Application.Common.Exceptions;
 using TaskManagerAPI.Application.Common.Interfaces;
 using TaskManagerAPI.Application.Dtos.Email;
-using TaskManagerAPI.Application.UsersManage.ResetPassword;
+using TaskManagerAPI.Application.UsersManage.ChangePassword.Commands;
 using TaskManagerAPI.Domain.Entities.UserManage;
 
-namespace TaskManagerAPI.Application.UsersManage.ChangePassword
+namespace TaskManagerAPI.Application.UsersManage.Commands.ChangePassword
 {
     public class ResetPasswordHandler : IRequestHandler<ChangePasswordCommand, Unit>
     {
@@ -49,7 +49,7 @@ namespace TaskManagerAPI.Application.UsersManage.ChangePassword
             var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, oldPassword);
             if (!isPasswordCorrect)
             {
-                throw new InvalidOperationException("Old password is incorrect.");
+                throw new BadRequestException("Old password is incorrect.");
             }
         }
 
@@ -57,7 +57,7 @@ namespace TaskManagerAPI.Application.UsersManage.ChangePassword
         {
             if (oldPassword == newPassword)
             {
-                throw new InvalidOperationException("New password cannot be the same as the old password.");
+                throw new BadRequestException("New password cannot be the same as the old password.");
             }
         }
 
@@ -67,7 +67,7 @@ namespace TaskManagerAPI.Application.UsersManage.ChangePassword
             if (!result.Succeeded)
             {
                 var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                throw new InvalidOperationException($"Failed to reset password. Errors: {errors}");
+                throw new BadRequestException($"Failed to reset password. Errors: {errors}");
             }
         }
 
@@ -75,7 +75,7 @@ namespace TaskManagerAPI.Application.UsersManage.ChangePassword
         {
             if (string.IsNullOrEmpty(email))
             {
-                throw new InvalidOperationException("Email cannot be null or empty.");
+                throw new BadRequestException("Email cannot be null or empty.");
             }
 
             var emailDto = new EmailDto
