@@ -46,7 +46,7 @@ namespace TaskManagerAPI.Application.PermissionsManage.Commands.CreatePermission
             if (request.CreatePermissionDto.TaskItemId != null)
             {
                 return await _taskManagerDbContext.TaskItems
-                    .Where(t => t.TaskListId == request.CreatePermissionDto.TaskItemId)
+                    .Where(t => t.TaskItemId == request.CreatePermissionDto.TaskItemId)
                     .Select(t => t.TaskLists.UserId)
                     .FirstOrDefaultAsync(cancellationToken)
                     ?? throw new NotFoundException("TaskItem or associated TaskList not found.");
