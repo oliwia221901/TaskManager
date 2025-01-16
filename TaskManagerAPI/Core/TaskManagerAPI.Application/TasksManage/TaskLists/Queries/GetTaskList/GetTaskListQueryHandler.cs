@@ -10,17 +10,17 @@ using TaskManagerAPI.Domain.Entities.TaskManage;
 namespace TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListForUser
 {
     public class GetTaskListQueryHandler : IRequestHandler<GetTaskListQuery, TaskListVm>
-	{
-		private readonly ITaskManagerDbContext _taskManagerDbContext;
-		private readonly ICurrentUserService _currentUserService;
+    {
+        private readonly ITaskManagerDbContext _taskManagerDbContext;
+        private readonly ICurrentUserService _currentUserService;
         private readonly IAccessControlService _accessControlService;
 
-		public GetTaskListQueryHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService, IAccessControlService accessControlService)
-		{
-			_taskManagerDbContext = taskManagerDbContext;
-			_currentUserService = currentUserService;
+        public GetTaskListQueryHandler(ITaskManagerDbContext taskManagerDbContext, ICurrentUserService currentUserService, IAccessControlService accessControlService)
+        {
+            _taskManagerDbContext = taskManagerDbContext;
+            _currentUserService = currentUserService;
             _accessControlService = accessControlService;
-		}
+        }
 
         public async Task<TaskListVm> Handle(GetTaskListQuery request, CancellationToken cancellationToken)
         {
@@ -29,7 +29,7 @@ namespace TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListFo
 
             var accessibleTaskLists = await _accessControlService.GetAccessibleTaskLists(currentUserId, cancellationToken);
 
-            var taskListsDto = MapTaskListByIdToDto(accessibleTaskLists, userName);
+            var taskListsDto = await MapTaskListByIdToDto(accessibleTaskLists, cancellationToken);
 
             return new TaskListVm
             {
@@ -38,22 +38,36 @@ namespace TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListFo
         }
 
         private async Task<string> GetCurrentUserId(string userName, CancellationToken cancellationToken)
-		{
-			return await _taskManagerDbContext.AppUsers
-				.Where(x => x.UserName == userName)
-				.Select(x => x.Id)
-				.SingleOrDefaultAsync(cancellationToken)
-				?? throw new NotFoundException("CurrentUserId was not found.");
-		}
-
-        private static List<GetTaskListDto> MapTaskListByIdToDto(List<TaskList> taskLists, string userName)
         {
-            return taskLists
-                .Select(tl => new GetTaskListDto
+            return await _taskManagerDbContext.AppUsers
+                .Where(x => x.UserName == userName)
+                .Select(x => x.Id)
+                .SingleOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException("UserId was not found.");
+        }
+
+        private async Task<string> GetUserNameById(string userId, CancellationToken cancellationToken)
+        {
+            return await _taskManagerDbContext.AppUsers
+                .Where(x => x.Id == userId)
+                .Select(x => x.UserName)
+                .SingleOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException("UserName was not found.");
+        }
+
+        private async Task<List<GetTaskListDto>> MapTaskListByIdToDto(List<TaskList> taskLists, CancellationToken cancellationToken)
+        {
+            var taskListsDto = new List<GetTaskListDto>();
+
+            foreach (var tl in taskLists)
+            {
+                var ownerUserName = await GetUserNameById(tl.UserId, cancellationToken);
+
+                taskListsDto.Add(new GetTaskListDto
                 {
                     TaskListId = tl.TaskListId,
                     TaskListName = tl.TaskListName,
-                    UserName = userName,
+                    UserName = ownerUserName,
                     TaskItems = tl.TaskItems
                         .Select(ti => new GetTaskItemDto
                         {
@@ -61,9 +75,10 @@ namespace TaskManagerAPI.Application.TasksManage.TaskLists.Queries.GetTaskListFo
                             TaskItemName = ti.TaskItemName
                         })
                         .ToList()
-                })
-                .ToList();
-        }
+                });
+            }
 
+            return taskListsDto;
+        }
     }
 }
